@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Stock;
+use Carbon\Carbon;
 use App\Transformers\StockTransformer;
 
 class StockController extends ApiController
@@ -12,5 +13,18 @@ class StockController extends ApiController
     {
         $stock = Stock::where('company_id', $company)->orderBy('id', 'desc')->firstOrFail();
         return $this->respond($stock, new StockTransformer());
+    }
+
+    /**
+     * @param  int $company
+     *
+     * @return mixed data
+     */
+    public function getTodaysChanges($company)
+    {
+        $latest = Stock::where('company_id', $company)->orderBy('id', 'asc')->firstOrFail();
+        $oldest = Stock::where('company_id', $company)->whereDate('created_at', Carbon::today())->firstOrFail();
+        $change = $latest->value - $oldest->value;
+        return response()->json(['change' => $change], 200);
     }
 }

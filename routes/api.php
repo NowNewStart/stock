@@ -19,9 +19,8 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers', 'middleware' => 'api
     $api->get('/bank', 'BankController@getIndex');
     $api->get('/bank/top/{index}', 'BankController@getTopUsers');
 
-    $api->get('/company', 'CompanyController@getIndex');
-    $api->get('/company/{company}', 'CompanyController@getCompany');
     $api->get('/company/{company}/stock/latest', 'StockController@getLatestStock');
+    $api->get('/company/{company}/stock/today', 'StockController@getTodaysChanges');
     $api->post('/company/{company}/buy', 'ShareController@buyShares');
     $api->post('/company/{company}/sell', 'ShareController@sellShares');
 
@@ -32,4 +31,6 @@ $api->version('v1', [], function ($api) {
         return response([], 400);
     });
     $api->post('/auth', 'App\Http\Controllers\UserController@auth');
+    $api->get('/company', 'CompanyController@getIndex');
+    $api->get('/company/{company}', 'CompanyController@getCompany');
 });
