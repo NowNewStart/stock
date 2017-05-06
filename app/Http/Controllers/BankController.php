@@ -16,7 +16,7 @@ class BankController extends ApiController
     }
 
     /**
-     * @param  int $index
+     * @param int $index
      *
      * @return mixed data
      */
