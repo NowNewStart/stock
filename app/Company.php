@@ -6,28 +6,31 @@ use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
 {
-    /**
-     * @return hasMany
-     */
-    public function stocks()
+    protected $fillable = [
+        'name', 'identifier', 'shares', 'free_shares', 'value'
+    ];
+
+    public function reduceFreeShares($shares)
     {
-        return $this->hasMany(Stock::class);
+        $new = $this->free_shares - $shares;
+        $this->update(['free_shares' => $new]);
     }
 
-    /**
-     * @return mixed data
-     */
-    public function getLatestStock()
+    public function increaseFreeShares($shares)
     {
-        return $this->stocks()->orderBy('id', 'desc')->get()->take(1);
+        $new = $this->free_shares + $shares;
+        $this->update(['free_shares' => $new]);
     }
 
-    /**
-     * @return int
-     */
-    public function getStockDiff()
+    public function increaseValue($shares)
     {
-        $stocks = $this->stocks()->orderBy('id', 'desc')->get()->take(2)->pluck('value');
-        return $stocks->diff();
+        $new_value = $this->value + ($this->value * (($shares / $this->shares) * 1000));
+        $this->update(['value' => $new_value]);
+    }
+
+    public function decreaseValue($shares)
+    {
+        $new_value = $this->value - ($this->value * (($shares / $this->shares) * 2000));
+        $this->update(['value' => $new_value]);
     }
 }

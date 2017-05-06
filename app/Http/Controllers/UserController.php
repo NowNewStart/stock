@@ -7,7 +7,7 @@ use Tymon\JWTAuth\JWTAuth;
 use App\User;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
-class UserController extends ApiController
+class UserController extends Controller
 {
     /**
      * @var JWTAuth
@@ -42,13 +42,5 @@ class UserController extends ApiController
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
         return response()->json(['token' => compact('token')['token']]);
-    }
-
-    /**
-     * @return mixed data
-     */
-    public function getUser()
-    {
-        return app('Dingo\Api\Auth\Auth')->user();
     }
 }

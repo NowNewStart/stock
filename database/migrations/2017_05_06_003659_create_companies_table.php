@@ -19,6 +19,7 @@ class CreateCompaniesTable extends Migration
             $table->string('identifier');
             $table->integer('shares');
             $table->integer('free_shares');
+            $table->double('value');
             $table->timestamps();
         });
     }
