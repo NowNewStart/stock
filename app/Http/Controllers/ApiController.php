@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Dingo\Api\Http\Request;
-use Dingo\Api\Routing\Helpers;
 use App\Transformers\UserTransformer;
+use Dingo\Api\Routing\Helpers;
 
 class ApiController extends Controller
 {
     use Helpers;
+
     /**
      * @param $data
      * @param $transformer
@@ -20,6 +20,7 @@ class ApiController extends Controller
         if (count($data) == 1) {
             return $this->response->item($data, $transformer);
         }
+
         return $this->response->collection($data, $transformer);
     }
 
@@ -28,7 +29,7 @@ class ApiController extends Controller
      */
     public function getUser()
     {
-        return $this->respond(app('Dingo\Api\Auth\Auth')->user(), new UserTransformer);
+        return $this->respond(app('Dingo\Api\Auth\Auth')->user(), new UserTransformer());
     }
 
     /**

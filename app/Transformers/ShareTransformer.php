@@ -1,28 +1,31 @@
-<?php namespace App\Transformers;
+<?php
 
-use App\Share;
+namespace App\Transformers;
+
 use App\Company;
+use App\Share;
 use League\Fractal\TransformerAbstract;
-use Carbon\Carbon;
 
 class ShareTransformer extends TransformerAbstract
 {
     protected $defaultIncludes = [
-        'company'
+        'company',
     ];
+
     /**
-     * @param  Share $share
+     * @param Share $share
+     *
      * @return array
      */
     public function transform(Share $share)
     {
         return [
-            'amount' => $share->amount
+            'amount' => $share->amount,
         ];
     }
 
     public function includeCompany(Share $share)
     {
-        return $this->item($share->company, new CompanyTransformer);
+        return $this->item($share->company, new CompanyTransformer());
     }
 }

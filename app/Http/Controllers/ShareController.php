@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Bank;
 use App\Company;
 use App\Share;
 use App\Transformers\ShareTransformer;
-use App\Bank;
+use Illuminate\Http\Request;
 
 class ShareController extends ApiController
 {
     /**
-     * @param  Company  $company
-     * @param  Request $request
+     * @param Company $company
+     * @param Request $request
      *
      * @return mixed data
      */
@@ -30,7 +30,7 @@ class ShareController extends ApiController
         $share = Share::where(['user_id' => $this->user->id, 'company_id' => $company->id]);
         if ($share->count() > 0) {
             $new_amount = $share->first()->amount + $request->get('shares');
-            $share->first()->update(['amount' => $new_amount ]);
+            $share->first()->update(['amount' => $new_amount]);
         } else {
             $share = Share::create(['user_id' => $this->user->id, 'company_id' => $company->id, 'amount' => $request->get('shares')]);
         }
@@ -43,8 +43,8 @@ class ShareController extends ApiController
     }
 
     /**
-     * @param  Company $company
-     * @param  Request $request
+     * @param Company $company
+     * @param Request $request
      *
      * @return mixed data
      */
@@ -64,6 +64,7 @@ class ShareController extends ApiController
             $share->reduceOwnedShares($request->get('shares'));
         }
         $bank->addToCredit($profit);
+
         return response(['success' => 'true'], 200);
     }
 
@@ -73,6 +74,7 @@ class ShareController extends ApiController
     public function getShares()
     {
         $shares = Share::where('user_id', $this->user->id)->orderBy('amount', 'desc')->get();
-        return $this->respond($shares, new ShareTransformer);
+
+        return $this->respond($shares, new ShareTransformer());
     }
 }
