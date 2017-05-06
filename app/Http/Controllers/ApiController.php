@@ -17,7 +17,6 @@ class ApiController extends Controller
      */
     public function respond($data, $transformer)
     {
-        return $data;
         if (count($data) == 1) {
             return $this->response->item($data, $transformer);
         }
