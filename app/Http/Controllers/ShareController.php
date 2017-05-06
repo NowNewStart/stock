@@ -5,18 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Company;
 use App\Share;
+use App\Transformers\ShareTransformer;
 use App\Bank;
 
 class ShareController extends ApiController
 {
     /**
-     * @param  int  $company
+     * @param  Company  $company
      * @param  Request $request
      *
      * @return mixed data
      */
-    public function buyShares(Company $company, Request $request)
+    public function buyShares($company, Request $request)
     {
+        $company = Company::findOrFail($company);
         $bank = Bank::where('user_id', $this->user->id)->firstOrFail();
         if ($request->get('shares') < $company->freeShares) {
             return response(['error' => 'Not enough shares available'], 400);
@@ -40,6 +42,12 @@ class ShareController extends ApiController
         return response(['success' => 'true'], 200);
     }
 
+    /**
+     * @param  Company $company
+     * @param  Request $request
+     *
+     * @return mixed data
+     */
     public function sellShares(Company $company, Request $request)
     {
         $bank = Bank::where('user_id', $this->user->id)->firstOrFail();
@@ -57,5 +65,14 @@ class ShareController extends ApiController
         }
         $bank->addToCredit($profit);
         return response(['success' => 'true'], 200);
+    }
+
+    /**
+     * @return mixed data
+     */
+    public function getShares()
+    {
+        $shares = Share::where('user_id', $this->user->id)->orderBy('amount', 'desc')->get();
+        return $this->respond($shares, new ShareTransformer);
     }
 }

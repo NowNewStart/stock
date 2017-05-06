@@ -12,12 +12,6 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::bind('user', function ($value) {
-    return App\User::findOrFail($value);
-});
-Route::bind('company', function ($value) {
-    return App\Company::findOrFail($value);
-});
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', ['namespace' => 'App\Http\Controllers','middleware' => 'api.auth', 'providers' => 'jwt'], function ($api) {
@@ -29,6 +23,8 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers','middleware' => 'api.
     $api->get('/company/{company}', 'CompanyController@getCompany');
     $api->post('/company/{company}/buy', 'ShareController@buyShares');
     $api->post('/company/{company}/sell', 'ShareController@sellShares');
+
+    $api->get('/shares', 'ShareController@getShares');
 });
 $api->version('v1', [], function ($api) {
     $api->get('/', function () {
