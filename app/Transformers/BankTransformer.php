@@ -16,7 +16,7 @@ class BankTransformer extends TransformerAbstract
     public function transform(Bank $bank)
     {
         return [
-            'name' => User::find($bank->user_id)->name,
+            'name'   => User::find($bank->user_id)->name,
             'credit' => $bank->credit,
         ];
     }
