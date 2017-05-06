@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Stock extends Model
 {
-    protected $fillable = ['value','previous'];
+    protected $fillable = ['value', 'previous'];
 
     public function company()
     {
