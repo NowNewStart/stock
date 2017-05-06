@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Company extends Model
 {
     protected $fillable = [
-        'name', 'identifier', 'shares', 'free_shares', 'value'
+        'name', 'identifier', 'shares', 'free_shares', 'value',
     ];
 
     public function reduceFreeShares($shares)
