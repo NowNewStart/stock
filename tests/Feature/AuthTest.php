@@ -10,7 +10,7 @@ class AuthTest extends TestCase
     {
         $this->response = $this->post('api/auth', [
                     'email'    => 'user1@stock.com',
-                    'password' => 'password'
+                    'password' => 'password',
             ]);
         $token = $this->response->json();
         $this->token = $token['token'];
