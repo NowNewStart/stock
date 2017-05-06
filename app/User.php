@@ -36,10 +36,10 @@ class User extends Authenticatable
     }
 
     /**
-     * @return belongsTo
+     * @return hasOne
      */
     public function bank()
     {
-        return $this->belongsTo(Bank::class);
+        return $this->hasOne(Bank::class);
     }
 }

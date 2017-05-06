@@ -3,6 +3,7 @@
 namespace App\Transformers;
 
 use App\Bank;
+use App\User;
 use League\Fractal\TransformerAbstract;
 
 class BankTransformer extends TransformerAbstract
@@ -15,6 +16,7 @@ class BankTransformer extends TransformerAbstract
     public function transform(Bank $bank)
     {
         return [
+            'name' => User::find($bank->user_id)->name,
             'credit' => $bank->credit,
         ];
     }
