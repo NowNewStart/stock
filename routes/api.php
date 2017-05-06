@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +13,7 @@ use Illuminate\Http\Request;
 */
 $api = app('Dingo\Api\Routing\Router');
 
-$api->version('v1', ['namespace' => 'App\Http\Controllers','middleware' => 'api.auth', 'providers' => 'jwt'], function ($api) {
+$api->version('v1', ['namespace' => 'App\Http\Controllers', 'middleware' => 'api.auth', 'providers' => 'jwt'], function ($api) {
     $api->get('/user', 'ApiController@getUser');
 
     $api->get('/bank', 'BankController@getIndex');

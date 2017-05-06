@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Dingo\Api\Http\Request;
-use Tymon\JWTAuth\JWTAuth;
 use App\User;
+use Dingo\Api\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\JWTAuth;
 
 class UserController extends Controller
 {
@@ -23,7 +23,7 @@ class UserController extends Controller
     }
 
     /**
-     * @param  Request $request
+     * @param Request $request
      *
      * @return mixed data
      */
@@ -41,6 +41,7 @@ class UserController extends Controller
             // something went wrong whilst attempting to encode the token
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
+
         return response()->json(['token' => compact('token')['token']]);
     }
 }
