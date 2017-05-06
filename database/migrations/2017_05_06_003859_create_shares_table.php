@@ -18,7 +18,7 @@ class CreateSharesTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('company_id')->unsigned();
-            $table->foreign('company_id')->references('id')->on('company');
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->integer('amount');
             $table->timestamps();
         });
