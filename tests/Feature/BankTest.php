@@ -12,6 +12,7 @@ class BankTest extends TestCase
         $this->response = $this->callAuthenticated('GET', '/api/bank');
         $this->response->assertStatus(200);
     }
+
     public function getBankTopUsers()
     {
         $this->createAuthenticatedUser();

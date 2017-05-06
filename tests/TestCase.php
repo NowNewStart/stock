@@ -2,11 +2,10 @@
 
 namespace Tests;
 
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use JWTAuth;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use JWTAuth;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -26,16 +25,16 @@ abstract class TestCase extends BaseTestCase
         $this->artisan('db:seed');
     }
 
-
     public function testGetApiIndex()
     {
         $response = $this->json('GET', '/api');
+
         return $response->assertStatus(400);
     }
 
     protected function createAuthenticatedUser()
     {
-        $this->user  = User::find(1);
+        $this->user = User::find(1);
         $this->token = JWTAuth::fromUser($this->user);
         JWTAuth::setToken($this->token);
         JWTAuth::attempt(['email' => $this->user->email, 'password' => $this->user->password]);
@@ -48,6 +47,7 @@ abstract class TestCase extends BaseTestCase
         }
 
         $server = $this->transformHeadersToServerVars($headers);
+
         return $this->call(strtoupper($method), $uri, $data, [], [], $server);
     }
 }
