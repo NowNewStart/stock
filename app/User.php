@@ -44,6 +44,9 @@ class User extends Authenticatable
         return $this->hasOne(Bank::class);
     }
 
+    /**
+     * @return User
+     */
     public function createBankAccount()
     {
         $this->bank()->create([]);
@@ -51,6 +54,11 @@ class User extends Authenticatable
         return $this;
     }
 
+    /**
+     * @param  Company $company
+     * @param  int  $shares_count
+     * @return bool
+     */
     public function buyShares(Company $company, $shares_count)
     {
         if ($shares_count > $company->free_shares) {
@@ -71,18 +79,72 @@ class User extends Authenticatable
             return false;
         }
         DB::commit();
+        //$company->increaseValue($shares_count);
+
+        return true;
+    }
+
+    /**
+     * @param  Company $company
+     * @return int
+     */
+    public function sharesOfCompany($company)
+    {
+        $share = $this->shares()->company($company)->first();
+        if (!$share) {
+            return 0;
+        } else {
+            return $share->amount;
+        }
+    }
+
+    /**
+     * @return int
+     */
+    public function getBalance()
+    {
+        return $this->bank->credit;
+    }
+
+    /**
+     * @param  Company $company
+     * @param  int  $shares_count
+     * @return boolean
+     */
+    public function sellShares(Company $company, $shares_count)
+    {
+        if ($shares_count > $this->sharesOfCompany($company)) {
+            return false;
+        }
+        $price = $company->value * $shares_count;
+        DB::beginTransaction();
+        if (!$this->decrementOrDelete($company, $shares_count) || !$this->bank->increment('credit', $price) || !$company->increment('free_shares', $shares_count)) {
+            DB::rollback();
+            return false;
+        }
+        DB::commit();
         $company->increaseValue($shares_count);
 
         return true;
     }
 
-    public function sharesOfCompany($company)
+    /**
+     * @param  Company $company
+     * @param  int  $shares_count
+     * @return bool
+     */
+    public function decrementOrDelete(Company $company, $shares_count)
     {
-        return $this->shares()->company($company)->firstOrFail()->amount;
-    }
-
-    public function getBalance()
-    {
-        return $this->bank->credit;
+        $share = $this->shares()->company($company);
+        if ($share->first()->amount == $shares_count) {
+            if ($share->delete()) {
+                return true;
+            }
+        } else {
+            if ($share->decrement('amount', $shares_count)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

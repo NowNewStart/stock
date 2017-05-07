@@ -45,12 +45,40 @@ class CompanyTest extends TestCase
         $this->response->assertStatus(200);
     }
 
-    public function testSellShares()
+    public function testUserSellAllShares()
     {
-        $this->testBuyShares();
-        $this->createAuthenticatedUser();
-        $this->response = $this->callAuthenticated('POST', '/api/company/1/sell', ['shares' => 1]);
-        $this->response->assertStatus(200);
+        $user = factory(User::class)->create()->createBankAccount();
+        $company = factory(Company::class)->create([
+            'shares'      => 10000,
+            'free_shares' => 10000,
+            'value'       => 60000,
+        ]);
+        $company->createStock();
+        $shares_count = 10;
+        $user->buyShares($company, $shares_count);
+        $new_company = Company::find($company->id);
+        $user->sellShares($company, $shares_count);
+        $this->assertEquals(10000, $new_company->fresh()->free_shares);
+        $this->assertEquals(0, $user->sharesOfCompany($company));
+        $this->assertEquals(10000000, $user->getBalance());
+    }
+
+    public function testUserSellSomeShares()
+    {
+        $user = factory(User::class)->create()->createBankAccount();
+        $company = factory(Company::class)->create([
+            'shares'      => 10000,
+            'free_shares' => 10000,
+            'value'       => 60000,
+        ]);
+        $company->createStock();
+        $shares_count = 10;
+        $user->buyShares($company, $shares_count);
+        $new_company = Company::find($company->id);
+        $user->sellShares($company, 5);
+        $this->assertEquals(9995, $new_company->fresh()->free_shares);
+        $this->assertEquals(5, $user->sharesOfCompany($company));
+        $this->assertEquals(9700000, $user->getBalance());
     }
 
     public function testUserWithNoSharesBuysShares()
