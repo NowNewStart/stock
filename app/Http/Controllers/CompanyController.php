@@ -20,8 +20,8 @@ class CompanyController extends ApiController
      *
      * @return response
      */
-    public function getCompany($id)
+    public function getCompany(Company $company)
     {
-        return $this->respond(Company::findOrFail($id), new CompanyTransformer());
+        return $this->respond($company, new CompanyTransformer());
     }
 }

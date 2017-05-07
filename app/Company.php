@@ -10,6 +10,12 @@ class Company extends Model
         'name', 'identifier', 'shares', 'free_shares', 'value',
     ];
 
+    protected $casts = [
+        'shares' => 'int',
+        'free_shares' => 'int',
+        'value' => 'int'
+    ];
+
     public function reduceFreeShares($shares)
     {
         $new = $this->free_shares - $shares;
@@ -39,5 +45,11 @@ class Company extends Model
     public function stocks()
     {
         return $this->hasMany(Stock::class);
+    }
+
+    public function createStock()
+    {
+        $this->stocks()->create(['value' => $this->value, 'previous' => 0]);
+        return $this;
     }
 }

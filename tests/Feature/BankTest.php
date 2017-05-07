@@ -3,19 +3,23 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
+use App\Bank;
+use App\Transformers\BankTransformer;
+use League\Fractal;
 
 class BankTest extends TestCase
 {
     public function testBankIndex()
     {
         $this->createAuthenticatedUser();
-        $this->response = $this->callAuthenticated('GET', '/api/bank');
-        $this->response->assertStatus(200);
+        $transformed = $this->transformData($this->user->bank, new BankTransformer());
+        $this->response = $this->callAuthenticated('GET', '/api/bank')->assertExactJson($transformed);
     }
-    public function getBankTopUsers()
+
+    public function testBankTopUsers()
     {
         $this->createAuthenticatedUser();
-        $this->response = $this->callAuthenticated('GET', '/api/bank/top/10');
-        $this->response->assertStatus(200);
+        $transformed = $this->transformData(Bank::orderBy('credit', 'desc')->get()->take(10), new BankTransformer());
+        $this->response = $this->callAuthenticated('GET', '/api/bank/top/10')->assertExactJson($transformed);
     }
 }

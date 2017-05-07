@@ -26,6 +26,13 @@ class RouteServiceProvider extends ServiceProvider
         //
 
         parent::boot();
+
+        Route::bind('user', function ($value) {
+            return \App\User::findOrFail($value);
+        });
+        Route::bind('company', function ($value) {
+            return \App\Company::findOrFail($value);
+        });
     }
 
     /**

@@ -13,12 +13,14 @@
 */
 $api = app('Dingo\Api\Routing\Router');
 
-$api->version('v1', ['namespace' => 'App\Http\Controllers', 'middleware' => 'api.auth', 'providers' => 'jwt'], function ($api) {
+$api->version('v1', ['namespace' => 'App\Http\Controllers', 'middleware' => ['api.auth', 'bindings'], 'providers' => 'jwt'], function ($api) {
     $api->get('/user', 'ApiController@getUser');
 
     $api->get('/bank', 'BankController@getIndex');
     $api->get('/bank/top/{index}', 'BankController@getTopUsers');
 
+    $api->get('/company', 'CompanyController@getIndex');
+    $api->get('/company/{company}', 'CompanyController@getCompany');
     $api->get('/company/{company}/stock/latest', 'StockController@getLatestStock');
     $api->get('/company/{company}/stock/today', 'StockController@getTodaysChanges');
     $api->post('/company/{company}/buy', 'ShareController@buyShares');
@@ -26,11 +28,9 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers', 'middleware' => 'api
 
     $api->get('/shares', 'ShareController@getShares');
 });
-$api->version('v1', [], function ($api) {
+$api->version('v1', ['namespace' => 'App\Http\Controllers'], function ($api) {
     $api->get('/', function () {
         return response([], 400);
     });
-    $api->post('/auth', 'App\Http\Controllers\UserController@auth');
-    $api->get('/company', 'CompanyController@getIndex');
-    $api->get('/company/{company}', 'CompanyController@getCompany');
+    $api->post('/auth', 'UserController@auth');
 });

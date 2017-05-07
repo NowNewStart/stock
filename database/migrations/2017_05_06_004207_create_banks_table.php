@@ -17,7 +17,7 @@ class CreateBanksTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->double('credit')->default(100000.00);
+            $table->integer('credit')->default(10000000);
             $table->timestamps();
         });
     }

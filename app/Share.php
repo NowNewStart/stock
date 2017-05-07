@@ -31,4 +31,9 @@ class Share extends Model
         $new = $this->amount - $amount;
         $this->update(['amount' => $new]);
     }
+
+    public function scopeCompany($query, Company $company)
+    {
+        return $query->where('company_id', $company->id);
+    }
 }

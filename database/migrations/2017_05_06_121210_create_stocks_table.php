@@ -17,8 +17,8 @@ class CreateStocksTable extends Migration
             $table->increments('id');
             $table->integer('company_id')->unsigned();
             $table->foreign('company_id')->references('id')->on('companies');
-            $table->double('value')->nullable();
-            $table->double('previous')->nullable();
+            $table->integer('value')->nullable();
+            $table->integer('previous')->nullable();
             $table->timestamps();
         });
     }

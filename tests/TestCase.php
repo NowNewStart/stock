@@ -6,7 +6,11 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use JWTAuth;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use League\Fractal\Manager;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use League\Fractal\Serializer\DataArraySerializer;
+use League\Fractal\Resource\Item;
+use League\Fractal\Resource\Collection;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -23,10 +27,8 @@ abstract class TestCase extends BaseTestCase
     public function runDatabaseMigrations()
     {
         $this->baseRunDatabaseMigrations();
-        $this->artisan('db:seed');
     }
-
-
+    
     public function testGetApiIndex()
     {
         $response = $this->json('GET', '/api');
@@ -49,5 +51,17 @@ abstract class TestCase extends BaseTestCase
 
         $server = $this->transformHeadersToServerVars($headers);
         return $this->call(strtoupper($method), $uri, $data, [], [], $server);
+    }
+
+    protected function transformData($data, $transformer)
+    {
+        $manager = new Manager();
+        $manager->setSerializer(new DataArraySerializer());
+        if (count($data) == 1) {
+            $resource = new Item($data, $transformer);
+        } else {
+            $resource = new Collection($data, $transformer);
+        }
+        return $manager->createData($resource)->toArray();
     }
 }
