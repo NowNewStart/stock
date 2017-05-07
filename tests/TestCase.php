@@ -27,6 +27,7 @@ abstract class TestCase extends BaseTestCase
     {
         $this->baseRunDatabaseMigrations();
     }
+
     public function testGetApiIndex()
     {
         $response = $this->json('GET', '/api');
