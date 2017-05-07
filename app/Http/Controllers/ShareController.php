@@ -19,26 +19,9 @@ class ShareController extends ApiController
      */
     public function buyShares(Company $company, Request $request)
     {
-        $bank = Bank::where('user_id', $this->user->id)->firstOrFail();
-        if ($request->get('shares') < $company->freeShares) {
-            return response(['error' => 'Not enough shares available'], 400);
+        if (!$user->buyShares($company, $request->get('shares'))) {
+            return response(['error' => 'something failed.'], 400);
         }
-        $price = $request->get('shares') * $company->value;
-        if ($price > $bank->credit) {
-            return response(['error' => 'Not enough money.'], 400);
-        }
-        $share = Share::where(['user_id' => $this->user->id, 'company_id' => $company->id]);
-        if ($share->count() > 0) {
-            $new_amount = $share->first()->amount + $request->get('shares');
-            $share->first()->update(['amount' => $new_amount]);
-        } else {
-            $share = Share::create(['user_id' => $this->user->id, 'company_id' => $company->id, 'amount' => $request->get('shares')]);
-        }
-        $company->reduceFreeShares($request->get('shares'));
-        $company->increaseValue($request->get('shares'));
-
-        $bank->removeFromCredit($price);
-
         return response(['success' => 'true'], 200);
     }
 
