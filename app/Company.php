@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Share;
 
 class Company extends Model
 {
@@ -52,5 +53,18 @@ class Company extends Model
         $this->stocks()->create(['value' => $this->value, 'previous' => 0]);
 
         return $this;
+    }
+
+    public function shares()
+    {
+        return $this->hasMany(Share::class);
+    }
+
+    public function payDividends()
+    {
+        $this->shares()->each(function ($share) {
+            $dividend = $share->amount * (0.25 * $this->value);
+            $share->user->bank->addToCredit($dividend);
+        });
     }
 }

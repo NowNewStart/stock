@@ -100,5 +100,36 @@ class CompanyTest extends TestCase
 
     public function testUserWithSharesBuysMoreShares()
     {
+        $user = factory(User::class)->create()->createBankAccount();
+        $company = factory(Company::class)->create([
+            'shares'      => 10000,
+            'free_shares' => 10000,
+            'value'       => 60000,
+        ]);
+        $company->createStock();
+        $shares_count = 10;
+        $user->buyShares($company, $shares_count);
+        $user->buyShares($company, 5);
+        $new_company = Company::find($company->id);
+        $this->assertEquals(9985, $new_company->free_shares);
+        $this->assertEquals(15, $user->sharesOfCompany($company));
+        $this->assertEquals(9100000, $user->getBalance());
+    }
+
+    public function testCompanyPayDividends()
+    {
+        $user = factory(User::class)->create()->createBankAccount();
+        $company = factory(Company::class)->create([
+            'shares'      => 10000,
+            'free_shares' => 10000,
+            'value'       => 60000,
+        ]);
+        $company->createStock();
+        $shares_count = 10;
+        $user->buyShares($company, $shares_count);
+        $new_company = Company::find($company->id);
+        $new_credit = $user->fresh()->bank->credit + $user->sharesOfCompany($company) * (0.25 * $company->value);
+        $new_company->payDividends();
+        $this->assertEquals($new_credit, $user->fresh()->bank->credit);
     }
 }
