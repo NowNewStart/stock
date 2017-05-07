@@ -55,8 +55,9 @@ class User extends Authenticatable
     }
 
     /**
-     * @param  Company $company
-     * @param  int  $shares_count
+     * @param Company $company
+     * @param int     $shares_count
+     *
      * @return bool
      */
     public function buyShares(Company $company, $shares_count)
@@ -85,7 +86,8 @@ class User extends Authenticatable
     }
 
     /**
-     * @param  Company $company
+     * @param Company $company
+     *
      * @return int
      */
     public function sharesOfCompany($company)
@@ -107,9 +109,10 @@ class User extends Authenticatable
     }
 
     /**
-     * @param  Company $company
-     * @param  int  $shares_count
-     * @return boolean
+     * @param Company $company
+     * @param int     $shares_count
+     *
+     * @return bool
      */
     public function sellShares(Company $company, $shares_count)
     {
@@ -120,6 +123,7 @@ class User extends Authenticatable
         DB::beginTransaction();
         if (!$this->decrementOrDelete($company, $shares_count) || !$this->bank->increment('credit', $price) || !$company->increment('free_shares', $shares_count)) {
             DB::rollback();
+
             return false;
         }
         DB::commit();
@@ -129,8 +133,9 @@ class User extends Authenticatable
     }
 
     /**
-     * @param  Company $company
-     * @param  int  $shares_count
+     * @param Company $company
+     * @param int     $shares_count
+     *
      * @return bool
      */
     public function decrementOrDelete(Company $company, $shares_count)
@@ -145,6 +150,7 @@ class User extends Authenticatable
                 return true;
             }
         }
+
         return false;
     }
 }
