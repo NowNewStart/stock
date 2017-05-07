@@ -2,10 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Bank;
-use App\Transformers\BankTransformer;
-use Tests\TestCase;
 use App\User;
+use Tests\TestCase;
 
 class BankTest extends TestCase
 {
