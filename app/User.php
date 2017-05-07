@@ -2,11 +2,9 @@
 
 namespace App;
 
+use DB;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Company;
-use App\Share;
-use DB;
 
 class User extends Authenticatable
 {
@@ -49,6 +47,7 @@ class User extends Authenticatable
     public function createBankAccount()
     {
         $this->bank()->create([]);
+
         return $this;
     }
 
@@ -62,12 +61,13 @@ class User extends Authenticatable
             return false;
         }
         DB::beginTransaction();
-        $share = $this->shares()->updateOrCreate([ 'company_id' => $company->id], []);
+        $share = $this->shares()->updateOrCreate(['company_id' => $company->id], []);
         if (!$share->increment('amount', $shares_count)
             || !$this->bank->decrement('credit', $price)
             || !$company->decrement('free_shares', $shares_count)
         ) {
             DB::rollback();
+
             return false;
         }
         DB::commit();

@@ -25,10 +25,10 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Company::class, function (Faker\Generator $faker) {
     return [
-        'name'           => $faker->name,
+        'name'                => $faker->name,
         'identifier'          => strtoupper(substr($faker->name, 0, 4)),
-        'shares'       => $faker->randomNumber,
-        'free_shares' => $faker->randomNumber,
-        'value' => $faker->randomNumber
+        'shares'              => $faker->randomNumber,
+        'free_shares'         => $faker->randomNumber,
+        'value'               => $faker->randomNumber,
     ];
 });

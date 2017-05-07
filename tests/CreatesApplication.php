@@ -2,8 +2,8 @@
 
 namespace Tests;
 
-use Illuminate\Contracts\Console\Kernel;
 use Dotenv\Dotenv;
+use Illuminate\Contracts\Console\Kernel;
 
 trait CreatesApplication
 {

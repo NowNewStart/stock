@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Bank;
 use App\Company;
 use App\Share;
-use App\User;
 use App\Transformers\ShareTransformer;
+use App\User;
 use Illuminate\Http\Request;
 
 class ShareController extends ApiController
