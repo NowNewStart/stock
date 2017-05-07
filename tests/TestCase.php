@@ -2,15 +2,18 @@
 
 namespace Tests;
 
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use JWTAuth;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+<<<<<<< HEAD
 use League\Fractal\Manager;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use League\Fractal\Serializer\DataArraySerializer;
 use League\Fractal\Resource\Item;
 use League\Fractal\Resource\Collection;
+=======
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use JWTAuth;
+>>>>>>> c21b0b8f2c42ea3cf9055eb15e410d09651aceda
 
 abstract class TestCase extends BaseTestCase
 {
@@ -28,16 +31,21 @@ abstract class TestCase extends BaseTestCase
     {
         $this->baseRunDatabaseMigrations();
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> c21b0b8f2c42ea3cf9055eb15e410d09651aceda
     public function testGetApiIndex()
     {
         $response = $this->json('GET', '/api');
+
         return $response->assertStatus(400);
     }
 
     protected function createAuthenticatedUser()
     {
-        $this->user  = User::find(1);
+        $this->user = User::find(1);
         $this->token = JWTAuth::fromUser($this->user);
         JWTAuth::setToken($this->token);
         JWTAuth::attempt(['email' => $this->user->email, 'password' => $this->user->password]);
@@ -50,6 +58,7 @@ abstract class TestCase extends BaseTestCase
         }
 
         $server = $this->transformHeadersToServerVars($headers);
+
         return $this->call(strtoupper($method), $uri, $data, [], [], $server);
     }
 

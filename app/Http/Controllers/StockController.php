@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Stock;
-use Carbon\Carbon;
 use App\Transformers\StockTransformer;
+use Carbon\Carbon;
 
 class StockController extends ApiController
 {
@@ -16,7 +16,7 @@ class StockController extends ApiController
     }
 
     /**
-     * @param  int $company
+     * @param int $company
      *
      * @return mixed data
      */
@@ -25,6 +25,7 @@ class StockController extends ApiController
         $latest = $company->stocks()->orderBy('id', 'desc')->firstOrFail();
         $oldest = $company->stocks()->whereDate('created_at', Carbon::today())->orderBy('id', 'asc')->firstOrFail();
         $change = $latest->value - $oldest->value;
+
         return response()->json(['change' => $change], 200);
     }
 }

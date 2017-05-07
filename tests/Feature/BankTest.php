@@ -16,7 +16,11 @@ class BankTest extends TestCase
         $this->response = $this->callAuthenticated('GET', '/api/bank')->assertExactJson($transformed);
     }
 
+<<<<<<< HEAD
     public function testBankTopUsers()
+=======
+    public function getBankTopUsers()
+>>>>>>> c21b0b8f2c42ea3cf9055eb15e410d09651aceda
     {
         $this->createAuthenticatedUser();
         $transformed = $this->transformData(Bank::orderBy('credit', 'desc')->get()->take(10), new BankTransformer());
