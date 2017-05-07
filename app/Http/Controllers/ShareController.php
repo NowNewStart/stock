@@ -22,6 +22,7 @@ class ShareController extends ApiController
         if (!$user->buyShares($company, $request->get('shares'))) {
             return response(['error' => 'something failed.'], 400);
         }
+
         return response(['success' => 'true'], 200);
     }
 
