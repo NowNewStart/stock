@@ -11,9 +11,9 @@ class Company extends Model
     ];
 
     protected $casts = [
-        'shares' => 'int',
+        'shares'      => 'int',
         'free_shares' => 'int',
-        'value' => 'int'
+        'value'       => 'int',
     ];
 
     public function reduceFreeShares($shares)
@@ -50,6 +50,7 @@ class Company extends Model
     public function createStock()
     {
         $this->stocks()->create(['value' => $this->value, 'previous' => 0]);
+
         return $this;
     }
 }

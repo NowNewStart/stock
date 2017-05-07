@@ -2,10 +2,9 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
 use App\Bank;
 use App\Transformers\BankTransformer;
-use League\Fractal;
+use Tests\TestCase;
 
 class BankTest extends TestCase
 {

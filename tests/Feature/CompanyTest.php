@@ -3,11 +3,8 @@
 namespace Tests\Feature;
 
 use App\Company;
-use App\User;
-use App\Bank;
-use App\Share;
 use App\Transformers\CompanyTransformer;
-use App\Transformers\StockTransformer;
+use App\User;
 use Tests\TestCase;
 
 class CompanyTest extends TestCase
@@ -60,9 +57,9 @@ class CompanyTest extends TestCase
     {
         $user = factory(User::class)->create()->createBankAccount();
         $company = factory(Company::class)->create([
-            'shares' => 10000,
+            'shares'      => 10000,
             'free_shares' => 10000,
-            'value' => 60000
+            'value'       => 60000,
         ]);
         $company->createStock();
         $shares_count = 10;

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+<<<<<<< HEAD
 use App\Stock;
+=======
+>>>>>>> cee46c63435715f0cb8ca5159cf80cffde66b0b7
 use App\Transformers\StockTransformer;
 use Carbon\Carbon;
 
