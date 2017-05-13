@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Company;
 use App\Bank;
+use App\Company;
 
 class HomeController extends Controller
 {
-
     /**
      * Show the application dashboard.
      *
@@ -20,6 +18,7 @@ class HomeController extends Controller
         $mvu = Bank::orderBy('credit', 'desc')->get()->take(10)->map(function ($bank) {
             return ['user' => $bank->user, 'bank' => $bank];
         });
+
         return view('welcome', ['mvc' => $mvc, 'mvu' => $mvu]);
     }
 }

@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Company;
-use App\Transformers\CompanyTransformer;
 use App\User;
 use Tests\TestCase;
 

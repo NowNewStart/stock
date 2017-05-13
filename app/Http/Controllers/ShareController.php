@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Bank;
 use App\Company;
 use App\Share;
-use App\User;
 use Illuminate\Http\Request;
 
 class ShareController extends ApiController
@@ -33,7 +31,7 @@ class ShareController extends ApiController
         if (!$user->sellShares($company, $request->get('shares'))) {
         }
     }
-    
+
     /**
      * @return mixed data
      */
