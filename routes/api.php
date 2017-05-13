@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -11,26 +12,7 @@
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-$api = app('Dingo\Api\Routing\Router');
 
-$api->version('v1', ['namespace' => 'App\Http\Controllers', 'middleware' => ['api.auth', 'bindings'], 'providers' => 'jwt'], function ($api) {
-    $api->get('/user', 'ApiController@getUser');
-
-    $api->get('/bank', 'BankController@getIndex');
-    $api->get('/bank/top/{index}', 'BankController@getTopUsers');
-
-    $api->get('/company', 'CompanyController@getIndex');
-    $api->get('/company/{company}', 'CompanyController@getCompany');
-    $api->get('/company/{company}/stock/latest', 'StockController@getLatestStock');
-    $api->get('/company/{company}/stock/today', 'StockController@getTodaysChanges');
-    $api->post('/company/{company}/buy', 'ShareController@buyShares');
-    $api->post('/company/{company}/sell', 'ShareController@sellShares');
-
-    $api->get('/shares', 'ShareController@getShares');
-});
-$api->version('v1', ['namespace' => 'App\Http\Controllers'], function ($api) {
-    $api->get('/', function () {
-        return response([], 400);
-    });
-    $api->post('/auth', 'UserController@auth');
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
 });

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Company;
-use App\Transformers\CompanyTransformer;
 
 class CompanyController extends ApiController
 {
@@ -12,7 +11,7 @@ class CompanyController extends ApiController
      */
     public function getIndex()
     {
-        return $this->respond(Company::all(), new CompanyTransformer());
+        $all = Company::all();
     }
 
     /**
@@ -22,6 +21,5 @@ class CompanyController extends ApiController
      */
     public function getCompany(Company $company)
     {
-        return $this->respond($company, new CompanyTransformer());
     }
 }

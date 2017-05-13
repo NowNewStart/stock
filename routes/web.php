@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return response([], 404);
-});
+Route::get('/', 'HomeController@getIndex');
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

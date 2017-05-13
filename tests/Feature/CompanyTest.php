@@ -9,42 +9,6 @@ use Tests\TestCase;
 
 class CompanyTest extends TestCase
 {
-    public function testCompanyIndex()
-    {
-        $this->createAuthenticatedUser();
-        $transformed = $this->transformData(Company::all(), new CompanyTransformer());
-        $this->response = $this->callAuthenticated('GET', '/api/company')->assertExactJson($transformed);
-    }
-
-    public function testGetSingleCompany()
-    {
-        $this->createAuthenticatedUser();
-        $transformed = $this->transformData(Company::find(1), new CompanyTransformer());
-        $this->response = $this->callAuthenticated('GET', '/api/company/1')->assertExactJson($transformed);
-    }
-
-    public function testGetLatestStock()
-    {
-        $this->createAuthenticatedUser();
-        $this->response = $this->callAuthenticated('GET', '/api/company/1/stock/latest');
-        $this->response->assertStatus(200);
-    }
-
-    public function testGetTodaysChanges()
-    {
-        $this->createAuthenticatedUser();
-        $this->response = $this->callAuthenticated('GET', '/api/company/1/stock/today');
-        $this->response->assertStatus(200);
-    }
-
-    public function testBuyShares()
-    {
-        $this->createAuthenticatedUser();
-        $this->response = $this->callAuthenticated('POST', '/api/company/1/buy', ['shares' => 1]);
-
-        $this->response->assertStatus(200);
-    }
-
     public function testUserSellAllShares()
     {
         $user = factory(User::class)->create()->createBankAccount();
@@ -72,8 +36,7 @@ class CompanyTest extends TestCase
             'value'       => 60000,
         ]);
         $company->createStock();
-        $shares_count = 10;
-        $user->buyShares($company, $shares_count);
+        $user->buyShares($company, 10);
         $new_company = Company::find($company->id);
         $user->sellShares($company, 5);
         $this->assertEquals(9995, $new_company->fresh()->free_shares);
@@ -90,8 +53,7 @@ class CompanyTest extends TestCase
             'value'       => 60000,
         ]);
         $company->createStock();
-        $shares_count = 10;
-        $user->buyShares($company, $shares_count);
+        $user->buyShares($company, 10);
         $new_company = Company::find($company->id);
         $this->assertEquals(9990, $new_company->free_shares);
         $this->assertEquals(10, $user->sharesOfCompany($company));
@@ -107,8 +69,7 @@ class CompanyTest extends TestCase
             'value'       => 60000,
         ]);
         $company->createStock();
-        $shares_count = 10;
-        $user->buyShares($company, $shares_count);
+        $user->buyShares($company, 10);
         $user->buyShares($company, 5);
         $new_company = Company::find($company->id);
         $this->assertEquals(9985, $new_company->free_shares);
@@ -125,8 +86,7 @@ class CompanyTest extends TestCase
             'value'       => 60000,
         ]);
         $company->createStock();
-        $shares_count = 10;
-        $user->buyShares($company, $shares_count);
+        $user->buyShares($company, 10);
         $new_company = Company::find($company->id);
         $new_credit = $user->fresh()->bank->credit + $user->sharesOfCompany($company) * (0.25 * $company->value);
         $new_company->payDividends();
