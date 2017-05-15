@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Transaction extends Model
 {
@@ -15,15 +16,6 @@ class Transaction extends Model
         'increase',
     ];
 
-    public function createPayload($type, $shares)
-    {
-        if (!in_array($type, self::EVENT_TYPES)) {
-            return;
-        }
-
-        return ['shares' => $shares];
-    }
-
     public function company()
     {
         return $this->belongsTo(Company::class);
@@ -32,5 +24,21 @@ class Transaction extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getLastToday($num)
+    {
+        return $this->whereDate('created_at', Carbon::today())->take($num);
+    }
+
+    
+    public function getType()
+    {
+        if ($this->type == 'buy' || $this->type == 'increase') {
+            return "Shares bought";
+        }
+        if ($this->type == 'sell' || $this->type == 'decrease') {
+            return "Shares sold";
+        }
     }
 }

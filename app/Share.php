@@ -45,4 +45,16 @@ class Share extends Model
     {
         return $this->whereDate('created_at', Carbon::today())->orderByDesc('id');
     }
+
+    public function inc($amount)
+    {
+        $new = $this->amount + $amount;
+        return $this->update(['amount' => $new]);
+    }
+
+    public function dec($amount)
+    {
+        $new = $this->amount - $amount;
+        return $this->update(['amount' => $new]);
+    }
 }

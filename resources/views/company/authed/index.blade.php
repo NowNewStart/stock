@@ -111,23 +111,25 @@
             <div class="card">
                 <div class="card-block">
                     <h4 class="card-title">Latest Transactions</h4>
-                    @if($shares->count() > 0)
+                    @if($transactions->count() > 0)
                         <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>User</th>
-                                    <th>Bought Shares</th>
+                                    <th>Type</th>
+                                    <th>Share Amount</th>
                                     <th>Value</th>
                                     <th>Time</th>
                                 </tr>
                             </thead>           
-                        @foreach($shares->get() as $share)
+                        @foreach($transactions->get() as $transaction)
                             <tbody>
                                 <tr>
-                                    <td><a href="/user/{{ $share->user->name }}">{{ $share->user->name }}</a></td>
-                                    <td>{{ $share->amount }}</td>
-                                    <td>${{ number_format(($share->amount * $company->value) / 100,2) }}</td>
-                                    <td>{{ $share->updated_at->diffForHumans() }}</td>
+                                    <td><a href="/user/{{ $transaction->user->name }}">{{ $transaction->user->name }}</a></td>
+                                    <td>{{ $transaction->getType() }}</td>
+                                    <td>{{ $transaction->shares }}</td>
+                                    <td>${{ number_format(($transaction->shares * $company->value) / 100,2)}}</td>
+                                    <td>{{ $transaction->created_at->diffForHumans() }}</td>
                                 </tr>
                             </tbody>                            
                         @endforeach

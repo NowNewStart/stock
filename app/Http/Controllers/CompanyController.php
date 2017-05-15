@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use Carbon\Carbon;
 
 class CompanyController extends Controller
 {
@@ -22,8 +23,12 @@ class CompanyController extends Controller
     public function getCompany(Company $company)
     {
         $stocks = $company->getLastTenStockChanges();
-        $shares = $company->shares()->today()->take(10);
+        $transactions = $company->transactions()->whereDate('created_at', Carbon::today())->orderByDesc('id')->take(10);
 
-        return view('company.index', ['company' => $company, 'shares' => $shares, 'stocks' => $stocks]);
+        return view('company.authed.index', [
+            'company' => $company,
+            'transactions' => $transactions,
+            'stocks' => $stocks
+        ]);
     }
 }

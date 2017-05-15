@@ -11,7 +11,7 @@ class ShareObserver
     {
         Transaction::create([
             'type'       => 'buy',
-            'payload'    => serialize(['shares' => $share->amount]),
+            'shares'    => $share->amount,
             'company_id' => $share->company->id,
             'user_id'    => $share->user->id,
         ]);
@@ -21,19 +21,19 @@ class ShareObserver
     {
         Transaction::create([
             'type'       => 'sell',
-            'payload'    => serialize(['shares' => $share->amount]),
+            'shares'    => $share->amount,
             'company_id' => $share->company->id,
             'user_id'    => $share->user->id,
         ]);
     }
 
-    public function updated(Share $share)
+    public function updating(Share $share)
     {
-        $change = $share->amount - $share->getOriginal()->amount;
-        $type = ($change < 0) ? 'decrease' : 'increase';
+        $shares = $share->amount - $share->getOriginal()['amount'];
+        $type = ($shares > 0) ? 'increase' : 'decrease';
         Transaction::create([
             'type'       => $type,
-            'payload'    => serialize(['shares' => $change]),
+            'shares'    => abs($shares),
             'company_id' => $share->company->id,
             'user_id'    => $share->user->id,
         ]);
