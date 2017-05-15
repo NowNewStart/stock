@@ -128,7 +128,6 @@ class User extends Authenticatable
         }
         $company->decreaseValue($shares_count);
         DB::commit();
-        
 
         return true;
     }
