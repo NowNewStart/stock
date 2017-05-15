@@ -29,8 +29,7 @@ class ShareObserver
 
     public function updated(Share $share)
     {
-        $original = $share->getOriginal();
-        $change = $share->amount - $original->amount;
+        $change = $share->amount - $share->getOriginal()->amount;
         if ($change < 0) {
             $type = 'decrease';
         } else {
