@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use App\Share;
-use Session;
 use Auth;
 use Illuminate\Http\Request;
+use Session;
 
 class ShareController extends Controller
 {
@@ -23,6 +23,7 @@ class ShareController extends Controller
         } else {
             Session::flash('error', 'There was a mistake buying shares.');
         }
+
         return redirect()->back();
     }
 
