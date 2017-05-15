@@ -3,10 +3,8 @@
 namespace App;
 
 use Carbon\Carbon;
-use App\Events\SharesSold;
-use App\Events\SharesBought;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Share extends Model
 {

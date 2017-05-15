@@ -1,28 +1,29 @@
 <?php
+
 namespace App\Observers;
 
-use App\Transaction;
 use App\Share;
+use App\Transaction;
 
 class ShareObserver
 {
     public function created(Share $share)
     {
         Transaction::create([
-            'type' => 'buy',
-            'payload' => serialize(['shares' => $share->amount]),
+            'type'       => 'buy',
+            'payload'    => serialize(['shares' => $share->amount]),
             'company_id' => $share->company->id,
-            'user_id' => $share->user->id
+            'user_id'    => $share->user->id,
         ]);
     }
 
     public function deleting(Share $share)
     {
         Transaction::create([
-            'type' => 'sell',
-            'payload' => serialize(['shares' => $share->amount]),
+            'type'       => 'sell',
+            'payload'    => serialize(['shares' => $share->amount]),
             'company_id' => $share->company->id,
-            'user_id' => $share->user->id
+            'user_id'    => $share->user->id,
         ]);
     }
 
@@ -31,15 +32,15 @@ class ShareObserver
         $original = $share->getOriginal();
         $change = $share->amount - $original->amount;
         if ($change < 0) {
-            $type = "decrease";
+            $type = 'decrease';
         } else {
-            $type = "increase";
+            $type = 'increase';
         }
         Transaction::create([
-            'type' => $type,
-            'payload' => serialize(['shares' => $change]),
+            'type'       => $type,
+            'payload'    => serialize(['shares' => $change]),
             'company_id' => $share->company->id,
-            'user_id' => $share->user->id
+            'user_id'    => $share->user->id,
         ]);
     }
 }

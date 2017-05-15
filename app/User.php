@@ -127,7 +127,7 @@ class User extends Authenticatable
 
             return false;
         }
-        
+
         DB::commit();
 
         return true;

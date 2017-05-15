@@ -12,14 +12,15 @@ class Transaction extends Model
         'buy',
         'sell',
         'decrease',
-        'increase'
+        'increase',
     ];
 
     public function createPayload($type, $shares)
     {
         if (!in_array($type, self::EVENT_TYPES)) {
-            return null;
+            return;
         }
+
         return ['shares' => $shares];
     }
 
