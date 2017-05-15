@@ -1,8 +1,8 @@
 <?php
 
 use App\Company;
-use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
+use Illuminate\Database\Seeder;
 
 class CompanyTableSeeder extends Seeder
 {
