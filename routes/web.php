@@ -14,6 +14,7 @@
 Route::get('/', 'HomeController@getIndex');
 
 Route::get('/company/{company}', 'CompanyController@getCompany');
+Route::get('/user/{user}', 'UserController@getUser');
 
 Auth::routes();
 

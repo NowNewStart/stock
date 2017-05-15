@@ -72,4 +72,9 @@ class Company extends Model
     {
         return $this->stocks()->whereDate('created_at', Carbon::today())->orderByDesc('id')->take(10);
     }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

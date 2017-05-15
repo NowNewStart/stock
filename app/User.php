@@ -121,12 +121,13 @@ class User extends Authenticatable
         }
         $price = $company->value * $shares_count;
         DB::beginTransaction();
+        $company->decreaseValue($shares_count);
         if (!$this->decrementOrDelete($company, $shares_count) || !$this->bank->increment('credit', $price) || !$company->increment('free_shares', $shares_count)) {
             DB::rollback();
 
             return false;
         }
-        $company->decreaseValue($shares_count);
+        
         DB::commit();
 
         return true;
@@ -152,5 +153,15 @@ class User extends Authenticatable
         }
 
         return false;
+    }
+
+    public function sharesOwned()
+    {
+        return $this->shares->pluck('amount')->sum();
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
     }
 }

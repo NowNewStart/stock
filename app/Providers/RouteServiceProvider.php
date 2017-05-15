@@ -28,7 +28,7 @@ class RouteServiceProvider extends ServiceProvider
         parent::boot();
 
         Route::bind('user', function ($value) {
-            return \App\User::findOrFail($value);
+            return \App\User::whereName($value)->firstOrFail();
         });
         Route::bind('company', function ($value) {
             return \App\Company::whereIdentifier($value)->firstOrFail();

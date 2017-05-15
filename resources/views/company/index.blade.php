@@ -85,14 +85,20 @@
                                     <th>Previous Value</th>
                                     <th>New Value</th>
                                     <th>Value Change</th>
+                                    <th>Time</th>
                                 </tr>
                             </thead>           
                         @foreach($stocks->get() as $stock)
                             <tbody>
                                 <tr>
+                                    @if($stock->previous != 0)
                                     <td>${{ number_format($stock->previous / 100,2) }}</td>
+                                    @else
+                                    <td>-</td>
+                                    @endif
                                     <td>${{ number_format($stock->value / 100,2) }}</td>
                                     <td>${{ number_format(($stock->value - $stock->previous) / 100,2) }}</td>
+                                    <td>{{ $stock->created_at->diffForHumans() }}</td>
                                 </tr>
                             </tbody>                            
                         @endforeach
@@ -111,6 +117,7 @@
                                 <tr>
                                     <th>User</th>
                                     <th>Bought Shares</th>
+                                    <th>Value</th>
                                     <th>Time</th>
                                 </tr>
                             </thead>           
@@ -119,7 +126,8 @@
                                 <tr>
                                     <td><a href="/user/{{ $share->user->name }}">{{ $share->user->name }}</a></td>
                                     <td>{{ $share->amount }}</td>
-                                    <td>{{ $share->updated_at->format("H:i:s") }}</td>
+                                    <td>${{ number_format(($share->amount * $company->value) / 100,2) }}</td>
+                                    <td>{{ $share->updated_at->diffForHumans() }}</td>
                                 </tr>
                             </tbody>                            
                         @endforeach

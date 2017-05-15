@@ -3,10 +3,15 @@
 namespace App;
 
 use Carbon\Carbon;
+use App\Events\SharesSold;
+use App\Events\SharesBought;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 
 class Share extends Model
 {
+    use Notifiable;
+
     protected $fillable = [
         'user_id', 'company_id', 'amount',
     ];
