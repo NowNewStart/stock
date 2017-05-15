@@ -11,7 +11,7 @@ class ShareObserver
     {
         Transaction::create([
             'type'       => 'buy',
-            'shares'    => $share->amount,
+            'shares'     => $share->amount,
             'company_id' => $share->company->id,
             'user_id'    => $share->user->id,
         ]);
@@ -21,7 +21,7 @@ class ShareObserver
     {
         Transaction::create([
             'type'       => 'sell',
-            'shares'    => $share->amount,
+            'shares'     => $share->amount,
             'company_id' => $share->company->id,
             'user_id'    => $share->user->id,
         ]);
@@ -33,7 +33,7 @@ class ShareObserver
         $type = ($shares > 0) ? 'increase' : 'decrease';
         Transaction::create([
             'type'       => $type,
-            'shares'    => abs($shares),
+            'shares'     => abs($shares),
             'company_id' => $share->company->id,
             'user_id'    => $share->user->id,
         ]);

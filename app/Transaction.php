@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
@@ -31,14 +31,13 @@ class Transaction extends Model
         return $this->whereDate('created_at', Carbon::today())->take($num);
     }
 
-    
     public function getType()
     {
         if ($this->type == 'buy' || $this->type == 'increase') {
-            return "Shares bought";
+            return 'Shares bought';
         }
         if ($this->type == 'sell' || $this->type == 'decrease') {
-            return "Shares sold";
+            return 'Shares sold';
         }
     }
 }

@@ -49,12 +49,14 @@ class Share extends Model
     public function inc($amount)
     {
         $new = $this->amount + $amount;
+
         return $this->update(['amount' => $new]);
     }
 
     public function dec($amount)
     {
         $new = $this->amount - $amount;
+
         return $this->update(['amount' => $new]);
     }
 }

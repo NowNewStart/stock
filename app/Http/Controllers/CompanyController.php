@@ -26,9 +26,9 @@ class CompanyController extends Controller
         $transactions = $company->transactions()->whereDate('created_at', Carbon::today())->orderByDesc('id')->take(10);
 
         return view('company.authed.index', [
-            'company' => $company,
+            'company'      => $company,
             'transactions' => $transactions,
-            'stocks' => $stocks
+            'stocks'       => $stocks,
         ]);
     }
 }
