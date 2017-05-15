@@ -10198,3 +10198,11 @@ a.text-gray-dark:hover {
 .card {
   margin-bottom: 10px;
 }
+
+.hidden {
+  display: none;
+}
+
+.btn-primary {
+  color: white !important;
+}

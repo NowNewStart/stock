@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use App\Share;
+use Session;
+use Auth;
 use Illuminate\Http\Request;
 
-class ShareController extends ApiController
+class ShareController extends Controller
 {
     /**
      * @param Company $company
@@ -16,8 +18,12 @@ class ShareController extends ApiController
      */
     public function buyShares(Company $company, Request $request)
     {
-        if (!$user->buyShares($company, $request->get('shares'))) {
+        if (!Auth::user()->buyShares($company, $request->get('shares'))) {
+            Session::flash('success', 'You bought '.$request->get('shares'));
+        } else {
+            Session::flash('error', 'There was a mistake buying shares.');
         }
+        return redirect()->back();
     }
 
     /**

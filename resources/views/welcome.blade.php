@@ -3,6 +3,7 @@
 @section('content')
 
 <div class="container">
+    @if(!Auth::check())
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-sm-12">
             <div class="card">
@@ -14,6 +15,7 @@
             </div>
         </div>
     </div>
+    @endif
     <div class="row">
         <div class="col-xl-6 col-lg-6 col-sm-12">
                 <div class="card">

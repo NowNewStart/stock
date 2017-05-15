@@ -30,14 +30,14 @@ class Company extends Model
 
     public function increaseValue($shares)
     {
-        $new_value = $this->value + ($this->value * (($shares / $this->shares) * 1000));
+        $new_value = ($this->value + ($this->value * (($shares / $this->shares) * 1000))) * 100;
         $this->stocks()->create(['value' => $new_value, 'previous' => $this->value]);
         $this->update(['value' => $new_value]);
     }
 
     public function decreaseValue($shares)
     {
-        $new_value = $this->value - ($this->value * (($shares / $this->shares) * 2000));
+        $new_value = ($this->value - ($this->value * (($shares / $this->shares) * 2000))) * 100;
         $this->stocks()->create(['value' => $new_value, 'previous' => $this->value]);
         $this->update(['value' => $new_value]);
     }
