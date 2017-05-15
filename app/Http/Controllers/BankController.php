@@ -21,6 +21,6 @@ class BankController extends Controller
      */
     public function getTopUsers($index)
     {
-        $top = Bank::orderBy('credit', 'desc')->get()->take($index);
+        $top = Bank::orderByDesc('credit')->take($index)->get();
     }
 }

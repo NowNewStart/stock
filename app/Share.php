@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Share extends Model
 {
@@ -35,5 +36,10 @@ class Share extends Model
     public function scopeCompany($query, Company $company)
     {
         return $query->where('company_id', $company->id);
+    }
+
+    public function scopeToday()
+    {
+        return $this->where('created_at', Carbon::today())->orderByDesc('id');
     }
 }

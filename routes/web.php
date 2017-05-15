@@ -13,4 +13,6 @@
 
 Route::get('/', 'HomeController@getIndex');
 
+Route::get('/company/{company}', 'CompanyController@getCompany');
+
 Auth::routes();

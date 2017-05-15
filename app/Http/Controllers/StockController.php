@@ -18,8 +18,12 @@ class StockController extends ApiController
      */
     public function getTodaysChanges($company)
     {
-        $latest = $company->stocks()->orderBy('id', 'desc')->firstOrFail();
-        $oldest = $company->stocks()->whereDate('created_at', Carbon::today())->orderBy('id', 'asc')->firstOrFail();
-        $change = $latest->value - $oldest->value;
+        try {
+            $latest = $company->stocks()->latest()->firstOrFail();
+            $oldest = $company->stocks()->whereDate('created_at', Carbon::today())->oldest()->firstOrFail();
+            $change = $latest->value - $oldest->value;
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            $change = 0;
+        }
     }
 }

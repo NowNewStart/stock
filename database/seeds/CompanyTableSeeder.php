@@ -2,13 +2,14 @@
 
 use App\Company;
 use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
 
 class CompanyTableSeeder extends Seeder
 {
     public function run()
     {
         for ($i = 0; $i < 100; $i++) {
-            $company_name = str_random(10);
+            $company_name = Faker::create()->company;
             $shares = rand(10000, 10000000);
             $value = rand(0, 100);
             $company = Company::create([

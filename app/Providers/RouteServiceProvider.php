@@ -31,7 +31,7 @@ class RouteServiceProvider extends ServiceProvider
             return \App\User::findOrFail($value);
         });
         Route::bind('company', function ($value) {
-            return \App\Company::findOrFail($value);
+            return \App\Company::whereIdentifier($value)->firstOrFail();
         });
     }
 
