@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use Carbon\Carbon;
+use Auth;
 
 class CompanyController extends Controller
 {
@@ -24,9 +25,9 @@ class CompanyController extends Controller
     {
         $stocks = $company->getLastTenStockChanges();
         $transactions = $company->transactions()->whereDate('created_at', Carbon::today())->orderByDesc('id')->take(10);
-
-        return view('company.authed.index', [
-            'company'      => $company,
+        $view = (Auth::check()) ? 'company.authed.index' : 'company.nonauth.index';
+        return view($view, [
+            'company' => $company,
             'transactions' => $transactions,
             'stocks'       => $stocks,
         ]);

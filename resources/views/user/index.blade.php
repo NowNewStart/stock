@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-xl-6 col-sm-12">
+        <div class="col-xl-5 col-sm-12">
             <div class="card">
                 <div class="card-block">
                     <h4 class="card-title">{{ $user->name }}</h4>
@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-6 col-sm-12">
+        <div class="col-xl-7 col-sm-12">
             <div class="card">
                 <div class="card-block">
                     <h4 class="card-title">Latest Transactions</h4>

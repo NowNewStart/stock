@@ -26,47 +26,6 @@
                             </tbody>
                         </table>
                     </div>
-                    <div id="buySharesDiv" class="hidden">
-                        <form action="/company/{{ $company->identifier }}/buy" method="POST">
-                            {{ csrf_field() }}
-                            <div class="form-group">
-                                <label for="sharenum">Number of Shares</label>
-                                <input type="number" placeholder="Number of Shares" name="shares" class="form-control" min="1" max="{{ $company->free_shares }}">
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary">Buy Shares</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div id="sellSharesDiv" class="hidden">
-                        <form action="/company/{{ $company->identifier }}/sell" method="POST">
-                            {{ csrf_field() }}
-                            <div class="form-group">
-                                <label for="sharenum">Number of Shares</label>
-                                <input type="number" placeholder="Number of Shares" name="shares" class="form-control" min="1" max="{{ Auth::user()->sharesOfCompany($company) }}">
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-danger">Sell Shares</button>
-                            </div>
-                        </form>
-                    </div>
-                    @if(session()->has('success'))
-                        <div class="alert alert-success">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            {{ session()->pull('success') }}
-                        </div>
-                    @elseif(session()->has('error'))
-                        <div class="alert alert-danger">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            {{ session()->pull('error') }}
-                        </div>
-                    @endif
-                    @if(Auth::check())
-                        <a onclick="showBuyShares()" class="btn btn-primary" id="buySharesButton">Buy Shares</a>
-                        @if(Auth::user()->sharesOfCompany($company) > 0)
-                            <a onclick="showSellShares()" class="btn btn-danger" id="sellSharesButton">Sell Shares</a>
-                        @endif
-                    @endif
                 </div>
             </div>
         </div>
