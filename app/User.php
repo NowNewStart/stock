@@ -76,10 +76,12 @@ class User extends Authenticatable
             || !$company->decrement('free_shares', $shares_count)
         ) {
             DB::rollback();
+
             return false;
         }
         $company->increaseValue($shares_count);
         DB::commit();
+
         return true;
     }
 
