@@ -30,11 +30,7 @@ class ShareObserver
     public function updated(Share $share)
     {
         $change = $share->amount - $share->getOriginal()->amount;
-        if ($change < 0) {
-            $type = 'decrease';
-        } else {
-            $type = 'increase';
-        }
+        $type = ($change < 0)  ? 'decrease' : 'increase';
         Transaction::create([
             'type'       => $type,
             'payload'    => serialize(['shares' => $change]),
