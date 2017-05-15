@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Title Page</title>
+        <title>Stock - @yield('title')</title>
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="/css/app.css">
@@ -32,6 +32,20 @@
               <li class="nav-item">
                 <a class="nav-link" href="#">Control Panel</a>
               </li>
+              @endif
+            </ul>
+            <ul class="navbar-nav my-6 my-lg-0">
+              @if(Auth::check())
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="userMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{ Auth::user()->name }}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="userMenuLink">
+                  <a class="dropdown-item" href="/user/{{ Auth::user()->name }}">Profile</a>
+                  <a class="dropdown-item" href="/settings">Settings</a>
+                  <a class="dropdown-item" href="/logout">Logout</a>
+                </div>
+              </li>     
               @else
               <li class="nav-item">
                 <a class="nav-link" href="/login">Sign In</a>
