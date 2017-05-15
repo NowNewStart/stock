@@ -16,6 +16,6 @@ class Stock extends Model
 
     public function scopeToday()
     {
-        return $this->where('created_at', Carbon::today())->orderByDesc('id');
+        return $this->whereDate('created_at', Carbon::today())->orderByDesc('id');
     }
 }

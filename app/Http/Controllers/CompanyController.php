@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use App\Stock;
 
 class CompanyController extends Controller
 {
@@ -21,9 +22,8 @@ class CompanyController extends Controller
      */
     public function getCompany(Company $company)
     {
-        $stocks = $company->stocks()->today()->take(10);
+        $stocks = $company->getLastTenStockChanges();
         $shares = $company->shares()->today()->take(10);
-
         return view('company.index', ['company' => $company, 'shares' => $shares, 'stocks' => $stocks]);
     }
 }

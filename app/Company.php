@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Company extends Model
 {
@@ -30,14 +31,14 @@ class Company extends Model
 
     public function increaseValue($shares)
     {
-        $new_value = ($this->value + ($this->value * (($shares / $this->shares) * 1000))) * 100;
+        $new_value = $this->value + ($this->value * (($shares / $this->shares) * 10));
         $this->stocks()->create(['value' => $new_value, 'previous' => $this->value]);
         $this->update(['value' => $new_value]);
     }
 
     public function decreaseValue($shares)
     {
-        $new_value = ($this->value - ($this->value * (($shares / $this->shares) * 2000))) * 100;
+        $new_value = $this->value - ($this->value * (($shares / $this->shares) * 20));
         $this->stocks()->create(['value' => $new_value, 'previous' => $this->value]);
         $this->update(['value' => $new_value]);
     }
@@ -65,5 +66,10 @@ class Company extends Model
             $dividend = $share->amount * (0.25 * $this->value);
             $share->user->bank->addToCredit($dividend);
         });
+    }
+
+    public function getLastTenStockChanges()
+    {
+        return $this->stocks()->whereDate('created_at', Carbon::today())->orderByDesc('id')->take(10);
     }
 }

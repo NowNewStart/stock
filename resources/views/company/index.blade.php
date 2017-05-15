@@ -31,10 +31,22 @@
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <label for="sharenum">Number of Shares</label>
-                                <input type="number" placeholder="Number of Shares" name="shares" class="form-control">
+                                <input type="number" placeholder="Number of Shares" name="shares" class="form-control" min="1" max="{{ $company->free_shares }}">
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Buy Shares</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="sellSharesDiv" class="hidden">
+                        <form action="/company/{{ $company->identifier }}/sell" method="POST">
+                            {{ csrf_field() }}
+                            <div class="form-group">
+                                <label for="sharenum">Number of Shares</label>
+                                <input type="number" placeholder="Number of Shares" name="shares" class="form-control" min="1" max="{{ Auth::user()->sharesOfCompany($company) }}">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-danger">Sell Shares</button>
                             </div>
                         </form>
                     </div>
@@ -44,12 +56,15 @@
                             {{ session()->pull('success') }}
                         </div>
                     @elseif(session()->has('error'))
-
+                        <div class="alert alert-danger">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            {{ session()->pull('error') }}
+                        </div>
                     @endif
                     @if(Auth::check())
                         <a onclick="showBuyShares()" class="btn btn-primary" id="buySharesButton">Buy Shares</a>
                         @if(Auth::user()->sharesOfCompany($company) > 0)
-                            <a href="#" class="btn btn-warning">Sell Shares</a>
+                            <a onclick="showSellShares()" class="btn btn-danger" id="sellSharesButton">Sell Shares</a>
                         @endif
                     @endif
                 </div>
@@ -61,12 +76,27 @@
                     <h4 class="card-title">Stock Changes</h4>
                     <div class="row">
                         <div class="col-xl-3 col-sm-6"><strong>Current value</strong></div>
-                        <div class="col-xl-3 col-sm-6">${{ $company->value }}</div>
+                        <div class="col-xl-3 col-sm-6">${{ number_format($company->value / 100,2) }}</div>
                     </div>                    
                     @if($stocks->count() > 0)
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Previous Value</th>
+                                    <th>New Value</th>
+                                    <th>Value Change</th>
+                                </tr>
+                            </thead>           
                         @foreach($stocks->get() as $stock)
-                            <li>{{ $stock->value }}</li>
+                            <tbody>
+                                <tr>
+                                    <td>${{ number_format($stock->previous / 100,2) }}</td>
+                                    <td>${{ number_format($stock->value / 100,2) }}</td>
+                                    <td>${{ number_format(($stock->value - $stock->previous) / 100,2) }}</td>
+                                </tr>
+                            </tbody>                            
                         @endforeach
+                        </table>            
                     @else
                     No stock changes today.
                     @endif
@@ -108,6 +138,10 @@
 function showBuyShares() {
     $("#buySharesDiv").show();
     $("#buySharesButton").hide();
+}
+function showSellShares() {
+    $("#sellSharesDiv").show();
+    $("#sellSharesButton").hide();
 }
 </script>
 @endsection

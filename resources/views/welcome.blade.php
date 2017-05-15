@@ -26,7 +26,7 @@
                                 @foreach($mvc as $company)
                                     <li class="list-group-item">
                                         <a href="/company/{{ $company->identifier }}">{{ $company->name }}</a>
-                                        <sup>${{ $company->value }}</sup>
+                                        <sup>${{ number_format($company->value / 100,2) }}</sup>
                                     </li>
                                 @endforeach
                         </p>
@@ -42,7 +42,7 @@
                                 @foreach($mvu as $u)
                                     <li class="list-group-item">
                                         <a href="/user/{{ $u['user']['name'] }}">{{ $u['user']['name'] }}</a>
-                                        <sup>${{ $u['bank']['credit'] }}</sup>
+                                        <sup>${{ number_format($u['bank']['credit'] / 100,2) }}</sup>
                                     </li>
                                 @endforeach
                         </p>

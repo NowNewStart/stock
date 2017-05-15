@@ -10203,6 +10203,7 @@ a.text-gray-dark:hover {
   display: none;
 }
 
-.btn-primary {
+.btn-primary,
+.btn-danger {
   color: white !important;
 }
