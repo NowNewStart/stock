@@ -4,6 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Company extends Model
 {
@@ -69,6 +70,12 @@ class Company extends Model
         $this->shares()->each(function ($share) {
             $dividend = $share->amount * (0.1 * $this->value);
             $share->user->bank->addToCredit($dividend);
+            Transaction::create([
+                'type' => 'dividend',
+                'payload' => serialize(['amount' => $dividend]),
+                'company_id' => $this->id,
+                'user_id' => $share->user->id
+            ]);
         });
     }
 

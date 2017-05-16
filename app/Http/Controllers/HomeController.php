@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Bank;
+use Auth;
 use App\Company;
 
 class HomeController extends Controller
@@ -25,6 +26,9 @@ class HomeController extends Controller
      */
     public function getDashboard()
     {
-        return view('dashboard');
+        $transactions = Auth::user()->transactions()->orderByDesc('id')->take(10)->get();
+        return view('dashboard', [
+            'transactions' => $transactions
+        ]);
     }
 }

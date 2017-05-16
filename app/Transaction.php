@@ -14,6 +14,7 @@ class Transaction extends Model
         'sell',
         'decrease',
         'increase',
+        'dividend'
     ];
 
     public function company()
@@ -39,5 +40,19 @@ class Transaction extends Model
         if ($this->type == 'sell' || $this->type == 'decrease') {
             return 'Shares sold';
         }
+        if ($this->type == 'dividend') {
+            return 'Dividends received';
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function parsePayload()
+    {
+        if ($this->type == 'dividend') {
+            return "$".number_format((unserialize($this->payload)['amount'] / 100), 2);
+        }
+        return unserialize($this->payload)['shares'];
     }
 }

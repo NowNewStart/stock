@@ -3,10 +3,63 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <h1>Dashboard</h1>
-
+        <div class="col-xl-7 col-sm-12">    
+                <div class="card">
+                    <div class="card-block">
+                        <h4 class="card-title">Latest Transactions</h4>
+                        @if($transactions->count() > 0 )                     
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Share Amount</th>
+                                    <th>Time</th>
+                                </tr>
+                            </thead>           
+                        @foreach($transactions as $transaction)
+                            <tbody>
+                                <tr>
+                                    <td>{{ $transaction->getType() }}</td>
+                                    <td>{{ $transaction->parsePayload()}}</td>
+                                    <td>{{ $transaction->created_at->diffForHumans() }}</td>
+                                </tr>
+                            </tbody>                            
+                        @endforeach
+                        </table>                         
+                        @else
+                        No transactions so far.
+                        @endif
+                    </div>
+                </div>
+        </div>
         <div class="col-xl-5 col-sm-12">
-            
+                    <div class="card">
+                        <div class="card-block">
+                            <h4 class="card-title">Your Bank Account</h4>
+                            <p class="card-text">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <tbody>
+                                            <tr>
+                                                <td><strong>Current Bank Credit</strong></td>
+                                                <td>${{ number_format(Auth::user()->bank->credit / 100,2) }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Change since starting</strong></td>
+                                                <td>
+                                                    @if(Auth::user()->bank->credit - 10000000 > 0)
+                                                        <span style="color:green">${{ number_format((Auth::user()->bank->credit - 10000000) / 100,2) }}</span>
+                                                    @else 
+                                                        <span style="color:red">${{ number_format((Auth::user()->bank->credit - 10000000) / 100,2) }}</span>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
         </div>
     </div>
 </div>

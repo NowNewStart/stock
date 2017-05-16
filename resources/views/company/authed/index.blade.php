@@ -122,12 +122,12 @@
                                     <th>Time</th>
                                 </tr>
                             </thead>           
-                        @foreach($transactions->get() as $transaction)
+                        @foreach($transactions as $transaction)
                             <tbody>
                                 <tr>
                                     <td><a href="/user/{{ $transaction->user->name }}">{{ $transaction->user->name }}</a></td>
                                     <td>{{ $transaction->getType() }}</td>
-                                    <td>{{ $transaction->shares }}</td>
+                                    <td>{{ $transaction->parsePayload() }}</td>
                                     <td>${{ number_format(($transaction->shares * $company->value) / 100,2)}}</td>
                                     <td>{{ $transaction->created_at->diffForHumans() }}</td>
                                 </tr>
