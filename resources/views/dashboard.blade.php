@@ -42,15 +42,15 @@
                                         <tbody>
                                             <tr>
                                                 <td><strong>Current Bank Credit</strong></td>
-                                                <td>${{ number_format(Auth::user()->bank->credit / 100,2) }}</td>
+                                                <td>${{ Auth::user()->getBalance() }}</td>
                                             </tr>
                                             <tr>
                                                 <td><strong>Change since starting</strong></td>
                                                 <td>
-                                                    @if(Auth::user()->bank->credit - 10000000 > 0)
-                                                        <span style="color:green">${{ number_format((Auth::user()->bank->credit - 10000000) / 100,2) }}</span>
+                                                    @if(Auth::user()->getProfit() > 0)
+                                                        <span style="color:green">${{ Auth::user()->getProfit() }}</span>
                                                     @else 
-                                                        <span style="color:red">${{ number_format((Auth::user()->bank->credit - 10000000) / 100,2) }}</span>
+                                                        <span style="color:red">${{ Auth::user()->getProfit() }}</span>
                                                     @endif
                                                 </td>
                                             </tr>

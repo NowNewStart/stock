@@ -34,6 +34,9 @@ class HomeController extends Controller
         ]);
     }
 
+    /**
+     * @return view
+     */
     public function getUserLeaderboardByCredit()
     {
         $users = Bank::orderByDesc('credit')->take(100)->get()->map(function ($bank) {
@@ -43,6 +46,9 @@ class HomeController extends Controller
         return view('leaderboards.user', ['users' => $users]);
     }
 
+    /**
+     * @return view
+     */
     public function getUserLeaderboardByShares()
     {
         $users = User::take(100)->get()->sortByDesc(function ($user, $key) {
@@ -52,6 +58,9 @@ class HomeController extends Controller
         return view('leaderboards.user', ['users' => $users]);
     }
 
+    /**
+     * @return view
+     */
     public function getCompanyLeaderboardByValue()
     {
         $companies = Company::take(100)->get()->sortByDesc('value');
@@ -59,6 +68,9 @@ class HomeController extends Controller
         return view('leaderboards.company', ['companies' => $companies]);
     }
 
+    /**
+     * @return view
+     */
     public function getCompanyLeaderboardByShares()
     {
         $companies = Company::take(100)->get()->sortByDesc(function ($company, $key) {

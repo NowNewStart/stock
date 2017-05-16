@@ -13,14 +13,4 @@ class BankController extends Controller
     {
         $users = Bank::where('user_id', $this->user()->id)->first();
     }
-
-    /**
-     * @param int $index
-     *
-     * @return mixed data
-     */
-    public function getTopUsers($index)
-    {
-        $top = Bank::orderByDesc('credit')->take($index)->get();
-    }
 }

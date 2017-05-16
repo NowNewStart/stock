@@ -43,12 +43,4 @@ class ShareController extends Controller
 
         return redirect()->back();
     }
-
-    /**
-     * @return mixed data
-     */
-    public function getShares()
-    {
-        $shares = Share::where('user_id', $this->user->id)->orderBy('amount', 'desc')->get();
-    }
 }

@@ -7,6 +7,10 @@ use App\Transaction;
 
 class ShareObserver
 {
+    /**
+     * @param  Share  $share
+     * @return void
+     */
     public function created(Share $share)
     {
         Transaction::create([
@@ -17,6 +21,10 @@ class ShareObserver
         ]);
     }
 
+    /**
+     * @param  Share  $share
+     * @return void
+     */
     public function deleting(Share $share)
     {
         Transaction::create([
@@ -27,6 +35,10 @@ class ShareObserver
         ]);
     }
 
+    /**
+     * @param  Share  $share
+     * @return void
+     */
     public function updating(Share $share)
     {
         $shares = $share->amount - $share->getOriginal()['amount'];

@@ -27,7 +27,7 @@
                                 @foreach($mvc as $company)
                                     <li class="list-group-item">
                                         <a href="/company/{{ $company->identifier }}">{{ $company->name }}</a>
-                                        <sup>${{ number_format($company->value / 100,2) }}</sup>
+                                        <sup>${{ $company->getValue() }}</sup>
                                     </li>
                                 @endforeach
                         </p>

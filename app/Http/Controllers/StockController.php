@@ -6,11 +6,6 @@ use Carbon\Carbon;
 
 class StockController extends ApiController
 {
-    public function getLatestStock($company)
-    {
-        $stock = $company->stocks()->orderBy('id', 'desc')->firstOrFail();
-    }
-
     /**
      * @param int $company
      *

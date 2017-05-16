@@ -7,8 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
+    /**
+     * @var array
+     */
     protected $guarded = [];
 
+    /**
+     * @var array
+     */
     public static $EVENT_TYPES = [
         'buy',
         'sell',
@@ -17,21 +23,35 @@ class Transaction extends Model
         'dividend',
     ];
 
+    /**
+     * @return belongsTo
+     */
     public function company()
     {
         return $this->belongsTo(Company::class);
     }
 
+    /**
+     * @return belongsTo
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * @param  int $num
+     * 
+     * @return Transaction
+     */
     public function getLastToday($num)
     {
         return $this->whereDate('created_at', Carbon::today())->take($num);
     }
 
+    /**
+     * @return string
+     */
     public function getType()
     {
         if ($this->type == 'buy' || $this->type == 'increase') {

@@ -17,7 +17,7 @@
                                 </tr>
                                 <tr>
                                     <td><strong>Bank Account Value</strong></td>
-                                    <td>${{ number_format($user->bank->credit / 100,2) }}</td>
+                                    <td>${{ $user->getBalance() }}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Amount of Shares owned</strong></td>
@@ -32,13 +32,13 @@
         <div class="col-xl-7 col-sm-12">
             <div class="card">
                 <div class="card-block">
-                    <h4 class="card-title">Latest Transactions</h4>
+                    <h4 class="card-title">Owned Shares</h4>
                     @if($shares->count() > 0)
                         <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>User</th>
-                                    <th>Bought Shares</th>
+                                    <th>Shares</th>
                                     <th>Value</th>
                                     <th>Time</th>
                                 </tr>
@@ -48,7 +48,7 @@
                                 <tr>
                                     <td><a href="/user/{{ $share->user->name }}">{{ $share->user->name }}</a></td>
                                     <td>{{ $share->amount }}</td>
-                                    <td>${{ number_format(($share->amount * $share->company->value) / 100,2) }}</td>
+                                    <td>${{ $share->getShareValue() }}</td>
                                     <td>{{ $share->updated_at->diffForHumans() }}</td>
                                 </tr>
                             </tbody>                            

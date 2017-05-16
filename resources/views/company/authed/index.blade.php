@@ -76,7 +76,7 @@
                     <h4 class="card-title">Stock Changes</h4>
                     <div class="row">
                         <div class="col-xl-3 col-sm-6"><strong>Current value</strong></div>
-                        <div class="col-xl-3 col-sm-6">${{ number_format($company->value / 100,2) }}</div>
+                        <div class="col-xl-3 col-sm-6">${{ $company->getValue() }}</div>
                     </div>                    
                     @if($stocks->count() > 0)
                         <table class="table table-hover">
@@ -92,12 +92,12 @@
                             <tbody>
                                 <tr>
                                     @if($stock->previous != 0)
-                                    <td>${{ number_format($stock->previous / 100,2) }}</td>
+                                    <td>${{ $stock->getPreviousValue() }}</td>
                                     @else
                                     <td>-</td>
                                     @endif
-                                    <td>${{ number_format($stock->value / 100,2) }}</td>
-                                    <td>${{ number_format(($stock->value - $stock->previous) / 100,2) }}</td>
+                                    <td>${{ $stock->getCurrentValue() }}</td>
+                                    <td>${{ $stock->getChangeValue() }}</td>
                                     <td>{{ $stock->created_at->diffForHumans() }}</td>
                                 </tr>
                             </tbody>                            

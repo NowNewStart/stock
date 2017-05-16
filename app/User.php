@@ -154,13 +154,27 @@ class User extends Authenticatable
         return false;
     }
 
+    /**
+     * @return int
+     */
     public function sharesOwned()
     {
         return $this->shares->pluck('amount')->sum();
     }
 
+    /**
+     * @return hasMany
+     */
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    /**
+     * @return float
+     */
+    public function getProfit()
+    {
+        return number_format(($this->bank->credit - 10000000) / 1000, 2);
     }
 }
