@@ -40,10 +40,10 @@
                         <h4 class="card-title">Most valueable users</h4>
                         <p class="card-text">
                             <ul class="list-group">
-                                @foreach($mvu as $u)
+                                @foreach($users as $user)
                                     <li class="list-group-item">
-                                        <a href="/user/{{ $u['user']['name'] }}">{{ $u['user']['name'] }}</a>
-                                        <sup>${{ number_format($u['bank']['credit'] / 100,2) }}</sup>
+                                        <a href="/user/{{ $user->name }}">{{ $user->name }}</a>
+                                        <sup>${{ $user->getBalance() }}</sup>
                                     </li>
                                 @endforeach
                         </p>

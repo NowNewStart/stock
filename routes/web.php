@@ -16,6 +16,13 @@ Route::get('/', 'HomeController@getIndex');
 Route::get('/company/{company}', 'CompanyController@getCompany');
 Route::get('/user/{user}', 'UserController@getUser');
 
+Route::get('/leaderboards/user', 'HomeController@getUserLeaderboardByCredit');
+Route::get('/leaderboards/user/credit', 'HomeController@getUserLeaderboardByCredit');
+Route::get('/leaderboards/user/shares', 'HomeController@getUserLeaderboardByShares');
+Route::get('/leaderboards/company', 'HomeController@getCompanyLeaderboardByValue');
+Route::get('/leaderboards/company/value', 'HomeController@getCompanyLeaderboardByValue');
+Route::get('/leaderboards/company/shares', 'HomeController@getCompanyLeaderboardByShares');
+
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {

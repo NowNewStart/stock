@@ -89,4 +89,14 @@ class Company extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    public function getValue()
+    {
+        return number_format($this->value / 100, 2);
+    }
+
+    public function getSoldShares()
+    {
+        return $this->shares - $this->free_shares;
+    }
 }

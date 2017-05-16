@@ -106,7 +106,7 @@ class User extends Authenticatable
      */
     public function getBalance()
     {
-        return $this->bank->credit;
+        return number_format($this->bank->credit / 100, 2);
     }
 
     /**
