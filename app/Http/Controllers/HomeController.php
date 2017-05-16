@@ -39,21 +39,23 @@ class HomeController extends Controller
         $users = Bank::orderByDesc('credit')->take(100)->get()->map(function ($bank) {
             return $bank->user;
         });
+
         return view('leaderboards.user', ['users' => $users]);
     }
-
 
     public function getUserLeaderboardByShares()
     {
         $users = User::take(100)->get()->sortByDesc(function ($user, $key) {
             return $user->sharesOwned();
         });
+
         return view('leaderboards.user', ['users' => $users]);
     }
 
     public function getCompanyLeaderboardByValue()
     {
         $companies = Company::take(100)->get()->sortByDesc('value');
+
         return view('leaderboards.company', ['companies' => $companies]);
     }
 
@@ -62,6 +64,7 @@ class HomeController extends Controller
         $companies = Company::take(100)->get()->sortByDesc(function ($company, $key) {
             return $company->getSoldShares();
         });
+
         return view('leaderboards.company', ['companies' => $companies]);
     }
 }
