@@ -7,7 +7,7 @@ use App\User;
 class UserController extends Controller
 {
     /**
-     * @param  User $user
+     * @param User $user
      *
      * @return view
      */

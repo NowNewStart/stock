@@ -34,7 +34,7 @@ class Share extends Model
     }
 
     /**
-     * @param  int $amount
+     * @param int $amount
      *
      * @return void
      */
@@ -45,8 +45,8 @@ class Share extends Model
     }
 
     /**
-     * @param  Query  $query
-     * @param  Company $company
+     * @param Query   $query
+     * @param Company $company
      *
      * @return Query
      */
@@ -64,9 +64,9 @@ class Share extends Model
     }
 
     /**
-     * @param  int $amount
+     * @param int $amount
      *
-     * @return boolean
+     * @return bool
      */
     public function inc($amount)
     {

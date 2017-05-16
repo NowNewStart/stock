@@ -40,8 +40,8 @@ class Transaction extends Model
     }
 
     /**
-     * @param  int $num
-     * 
+     * @param int $num
+     *
      * @return Transaction
      */
     public function getLastToday($num)

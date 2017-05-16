@@ -24,7 +24,7 @@ class Company extends Model
     ];
 
     /**
-     * @param  int $shares
+     * @param int $shares
      *
      * @return void
      */
@@ -35,7 +35,7 @@ class Company extends Model
     }
 
     /**
-     * @param  int $shares
+     * @param int $shares
      *
      * @return void
      */
@@ -46,9 +46,9 @@ class Company extends Model
     }
 
     /**
-     * @param  int $shares
+     * @param int $shares
      *
-     * @return boolean
+     * @return bool
      */
     public function increaseValue($shares)
     {
@@ -56,12 +56,14 @@ class Company extends Model
         if ($this->stocks()->create(['value' => $new_value, 'previous' => $this->value]) && $this->update(['value' => $new_value])) {
             return true;
         }
+
         return false;
     }
 
     /**
-     * @param  int $shares
-     * @return boolean
+     * @param int $shares
+     *
+     * @return bool
      */
     public function decreaseValue($shares)
     {
@@ -69,6 +71,7 @@ class Company extends Model
         if ($this->stocks()->create(['value' => $new_value, 'previous' => $this->value]) && $this->update(['value' => $new_value])) {
             return true;
         }
+
         return false;
     }
 

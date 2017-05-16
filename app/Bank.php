@@ -30,7 +30,7 @@ class Bank extends Model
     }
 
     /**
-     * @param  int $amount
+     * @param int $amount
      *
      * @return void
      */

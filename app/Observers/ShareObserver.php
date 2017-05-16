@@ -8,7 +8,8 @@ use App\Transaction;
 class ShareObserver
 {
     /**
-     * @param  Share  $share
+     * @param Share $share
+     *
      * @return void
      */
     public function created(Share $share)
@@ -22,7 +23,8 @@ class ShareObserver
     }
 
     /**
-     * @param  Share  $share
+     * @param Share $share
+     *
      * @return void
      */
     public function deleting(Share $share)
@@ -36,7 +38,8 @@ class ShareObserver
     }
 
     /**
-     * @param  Share  $share
+     * @param Share $share
+     *
      * @return void
      */
     public function updating(Share $share)
