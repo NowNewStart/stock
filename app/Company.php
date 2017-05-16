@@ -31,16 +31,20 @@ class Company extends Model
 
     public function increaseValue($shares)
     {
-        $new_value = $this->value + ($this->value * (($shares / $this->shares) * 10));
-        $this->stocks()->create(['value' => $new_value, 'previous' => $this->value]);
-        $this->update(['value' => $new_value]);
+        $new_value = $this->value + ($this->value * (($shares / $this->shares) * 1000));
+        if ($this->stocks()->create(['value' => $new_value, 'previous' => $this->value]) && $this->update(['value' => $new_value])) {
+            return true;
+        }
+        return false;
     }
 
     public function decreaseValue($shares)
     {
-        $new_value = $this->value - ($this->value * (($shares / $this->shares) * 20));
-        $this->stocks()->create(['value' => $new_value, 'previous' => $this->value]);
-        $this->update(['value' => $new_value]);
+        $new_value = $this->value - ($this->value * (($shares / $this->shares) * 2000));
+        if ($this->stocks()->create(['value' => $new_value, 'previous' => $this->value]) && $this->update(['value' => $new_value])) {
+            return true;
+        }
+        return false;
     }
 
     public function stocks()
@@ -63,7 +67,7 @@ class Company extends Model
     public function payDividends()
     {
         $this->shares()->each(function ($share) {
-            $dividend = $share->amount * (0.25 * $this->value);
+            $dividend = $share->amount * (0.1 * $this->value);
             $share->user->bank->addToCredit($dividend);
         });
     }

@@ -21,4 +21,6 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
     Route::post('/company/{company}/buy', 'ShareController@buyShares');
     Route::post('/company/{company}/sell', 'ShareController@sellShares');
+
+    Route::get('/dash', 'HomeController@getDashboard');
 });

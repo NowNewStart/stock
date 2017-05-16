@@ -10,8 +10,8 @@
             <div class="card">
                 <div class="card-block">
                     <h4 class="card-title">Want to join too?</h4>
-                    <a href="#" class="btn btn-primary">Sign In</a> or
-                    <a href="#" class="btn btn-outline-primary">Sign Up</a>
+                    <a href="/login" class="btn btn-primary">Sign In</a> or
+                    <a href="/register" class="btn btn-outline-primary">Sign Up</a>
                 </div>
             </div>
         </div>

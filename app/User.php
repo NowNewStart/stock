@@ -77,12 +77,10 @@ class User extends Authenticatable
         }
         if (!$this->bank->decrement('credit', $price) || !$company->decrement('free_shares', $shares_count)) {
             DB::rollback();
-
             return false;
         }
         $company->increaseValue($shares_count);
         DB::commit();
-
         return true;
     }
 

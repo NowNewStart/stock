@@ -8,8 +8,6 @@ use App\Company;
 class HomeController extends Controller
 {
     /**
-     * Show the application dashboard.
-     *
      * @return \Illuminate\Http\Response
      */
     public function getIndex()
@@ -20,5 +18,13 @@ class HomeController extends Controller
         });
 
         return view('welcome', ['mvc' => $mvc, 'mvu' => $mvu]);
+    }
+
+    /**
+     * @return view
+     */
+    public function getDashboard()
+    {
+        return view('dashboard');
     }
 }
