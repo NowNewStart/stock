@@ -25,7 +25,7 @@ class CompanyController extends Controller
     {
         $stocks = $company->getLastTenStockChanges();
         $transactions = $company->transactions()->whereDate('created_at', Carbon::today())->orderByDesc('id')->get()->filter(function ($transaction) {
-            return ($transaction->type != "dividend");
+            return $transaction->type != 'dividend';
         })->take(10);
         $view = (Auth::check()) ? 'company.authed.index' : 'company.nonauth.index';
 

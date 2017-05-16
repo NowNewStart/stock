@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Bank;
-use Auth;
 use App\Company;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -27,8 +27,9 @@ class HomeController extends Controller
     public function getDashboard()
     {
         $transactions = Auth::user()->transactions()->orderByDesc('id')->take(10)->get();
+
         return view('dashboard', [
-            'transactions' => $transactions
+            'transactions' => $transactions,
         ]);
     }
 }

@@ -10,20 +10,20 @@ class ShareObserver
     public function created(Share $share)
     {
         Transaction::create([
-            'type'       => 'buy',
+            'type'        => 'buy',
             'payload'     => serialize(['shares' =>$share->amount]),
-            'company_id' => $share->company->id,
-            'user_id'    => $share->user->id,
+            'company_id'  => $share->company->id,
+            'user_id'     => $share->user->id,
         ]);
     }
 
     public function deleting(Share $share)
     {
         Transaction::create([
-            'type'       => 'sell',
+            'type'        => 'sell',
             'payload'     => serialize(['shares' =>$share->amount]),
-            'company_id' => $share->company->id,
-            'user_id'    => $share->user->id,
+            'company_id'  => $share->company->id,
+            'user_id'     => $share->user->id,
         ]);
     }
 
@@ -32,10 +32,10 @@ class ShareObserver
         $shares = $share->amount - $share->getOriginal()['amount'];
         $type = ($shares > 0) ? 'increase' : 'decrease';
         Transaction::create([
-            'type'       => $type,
+            'type'        => $type,
             'payload'     => serialize(['shares' =>$share->amount]),
-            'company_id' => $share->company->id,
-            'user_id'    => $share->user->id,
+            'company_id'  => $share->company->id,
+            'user_id'     => $share->user->id,
         ]);
     }
 }
