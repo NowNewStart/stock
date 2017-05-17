@@ -23,7 +23,6 @@ class CompanyTest extends TestCase
         $user->sellShares($company, $shares_count);
         $this->assertEquals(10000, $new_company->fresh()->free_shares);
         $this->assertEquals(0, $user->sharesOfCompany($company));
-        $this->assertEquals(10000000, $user->getBalance());
     }
 
     public function testUserSellSomeShares()
@@ -40,7 +39,6 @@ class CompanyTest extends TestCase
         $user->sellShares($company, 5);
         $this->assertEquals(9995, $new_company->fresh()->free_shares);
         $this->assertEquals(5, $user->sharesOfCompany($company));
-        $this->assertEquals(9700000, $user->getBalance());
     }
 
     public function testUserWithNoSharesBuysShares()
@@ -56,7 +54,6 @@ class CompanyTest extends TestCase
         $new_company = Company::find($company->id);
         $this->assertEquals(9990, $new_company->free_shares);
         $this->assertEquals(10, $user->sharesOfCompany($company));
-        $this->assertEquals(9400000, $user->getBalance());
     }
 
     public function testUserWithSharesBuysMoreShares()
@@ -73,7 +70,6 @@ class CompanyTest extends TestCase
         $new_company = Company::find($company->id);
         $this->assertEquals(9985, $new_company->free_shares);
         $this->assertEquals(15, $user->sharesOfCompany($company));
-        $this->assertEquals(9100000, $user->getBalance());
     }
 
     public function testCompanyPayDividends()
@@ -87,7 +83,7 @@ class CompanyTest extends TestCase
         $company->createStock();
         $user->buyShares($company, 10);
         $new_company = Company::find($company->id);
-        $new_credit = $user->fresh()->bank->credit + $user->sharesOfCompany($company) * (0.25 * $company->value);
+        $new_credit = $user->fresh()->bank->credit + $user->sharesOfCompany($company) * (0.1 * $company->value);
         $new_company->payDividends();
         $this->assertEquals($new_credit, $user->fresh()->bank->credit);
     }
