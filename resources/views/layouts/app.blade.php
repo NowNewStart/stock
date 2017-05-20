@@ -37,7 +37,7 @@
                 <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Leaderboards
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <div class="dropdown-menu" aria-labelledby="leaderboardsMenuLink">
                   <a class="dropdown-item" href="/leaderboards/user">Users By Credit</a>
                   <a class="dropdown-item" href="/leaderboards/user/shares">Users by Shares owned</a>
                   <a class="dropdown-item" href="/leaderboards/company">Companies by Value</a>
@@ -51,13 +51,13 @@
                 <a class="nav-link" href="/dash">Shares owned: <strong>{{ Auth::user()->sharesOwned() }}</strong></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/bank">Bank: <strong>${{ number_format(Auth::user()->bank->credit / 100,2) }}</strong></a>
+                <a class="nav-link" href="/dash">Bank: <strong>${{ number_format(Auth::user()->bank->credit / 100,2) }}</strong></a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   {{ Auth::user()->name }}
                 </a>
-                <div class="dropdown-menu" aria-labelledby="userMenuLink">
+                <div class="my-6 dropdown-menu" aria-labelledby="userMenuLink">
                   <a class="dropdown-item" href="/user/{{ Auth::user()->name }}">Profile</a>
                   <a class="dropdown-item" href="/settings">Settings</a>
                   <a class="dropdown-item" href="/logout">Logout</a>

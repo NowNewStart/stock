@@ -57,7 +57,7 @@
                         @endforeach
                         </table>                                 
                     @else
-                    No Transactions today.
+                    No Shares owned
                     @endif
                 </div>
             </div>

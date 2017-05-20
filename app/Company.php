@@ -15,37 +15,6 @@ class Company extends Model
     ];
 
     /**
-     * @var array
-     */
-    protected $casts = [
-        'shares'      => 'int',
-        'free_shares' => 'int',
-        'value'       => 'int',
-    ];
-
-    /**
-     * @param int $shares
-     *
-     * @return void
-     */
-    public function reduceFreeShares($shares)
-    {
-        $new = $this->free_shares - $shares;
-        $this->update(['free_shares' => $new]);
-    }
-
-    /**
-     * @param int $shares
-     *
-     * @return void
-     */
-    public function increaseFreeShares($shares)
-    {
-        $new = $this->free_shares + $shares;
-        $this->update(['free_shares' => $new]);
-    }
-
-    /**
      * @param int $shares
      *
      * @return bool
@@ -56,7 +25,6 @@ class Company extends Model
         if ($this->stocks()->create(['value' => $new_value, 'previous' => $this->value]) && $this->update(['value' => $new_value])) {
             return true;
         }
-
         return false;
     }
 
@@ -67,11 +35,10 @@ class Company extends Model
      */
     public function decreaseValue($shares)
     {
-        $new_value = $this->value - ($this->value * (($shares / $this->shares) * 2000));
+        $new_value = $this->value - ($this->value * (($shares / $this->shares) * 975));
         if ($this->stocks()->create(['value' => $new_value, 'previous' => $this->value]) && $this->update(['value' => $new_value])) {
             return true;
         }
-
         return false;
     }
 
@@ -119,11 +86,13 @@ class Company extends Model
     }
 
     /**
+     * @param int $index
+     * 
      * @return mixed data
      */
-    public function getLastTenStockChanges()
+    public function getStockChanges($index)
     {
-        return $this->stocks()->whereDate('created_at', Carbon::today())->orderByDesc('id')->take(10);
+        return $this->stocks()->whereDate('created_at', Carbon::today())->orderByDesc('id')->take($index);
     }
 
     /**
@@ -135,7 +104,7 @@ class Company extends Model
     }
 
     /**
-     * @return float
+     * @return string
      */
     public function getValue()
     {

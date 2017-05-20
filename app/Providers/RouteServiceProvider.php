@@ -23,16 +23,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
-
-        Route::bind('user', function ($value) {
-            return \App\User::whereName($value)->firstOrFail();
-        });
-        Route::bind('company', function ($value) {
-            return \App\Company::whereIdentifier($value)->firstOrFail();
-        });
     }
 
     /**
@@ -43,8 +34,6 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
         $this->mapWebRoutes();
-
-        //
     }
 
     /**

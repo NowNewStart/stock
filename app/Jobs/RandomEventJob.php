@@ -31,20 +31,21 @@ class RandomEventJob implements ShouldQueue
     public function handle()
     {
         $company = Company::inRandomOrder()->first();
+        $this->info('Company ID '.$company->id);
         if (rand(0, 100) > 50) {
             $company->multiplyValue(rand(0, 3) / 10);
             $company->transactions()->create([
-                    'type'    => 'random',
-                    'payload' => serialize(['story' => 'A random event occurred which increased the value.']),
-                    'user_id' => 1,
-                ]);
+                'type'    => 'random',
+                'payload' => serialize(['story' => "Something happened which increased the company's value"]),
+                'user_id' => null,
+            ]);
         } else {
             $company->multiplyValue(rand(0, 3) / (-10));
             $company->transactions()->create([
-                    'type'    => 'random',
-                    'payload' => serialize(['story' => 'A random event occurred which decreased the value.']),
-                    'user_id' => 1,
-                ]);
+                'type'    => 'random',
+                'payload' => serialize(['story' => "Something happened which decreased the company's value"]),
+                'user_id' => null,
+            ]);
         }
     }
 }

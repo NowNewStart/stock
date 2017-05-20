@@ -80,7 +80,15 @@ class Transaction extends Model
         if ($this->type == 'random') {
             return unserialize($this->payload)['story'];
         }
-
         return unserialize($this->payload)['shares'];
+    }
+
+    /**
+     * @param  $query
+     * 
+     * @return $query
+     */
+    public function scopeToday($query) {
+        return $query->whereDate('created_at', Carbon::today())->orderByDesc('id');
     }
 }

@@ -11,6 +11,13 @@
 |
 */
 
+Route::bind('user', function ($value) {
+    return \App\User::whereName($value)->firstOrFail();
+});
+Route::bind('company', function ($value) {
+    return \App\Company::whereIdentifier($value)->firstOrFail();
+});
+
 Route::get('/', 'HomeController@getIndex');
 
 Route::get('/company/{company}', 'CompanyController@getCompany');

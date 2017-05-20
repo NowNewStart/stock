@@ -70,8 +70,9 @@ class User extends Authenticatable
             return false;
         }
         DB::beginTransaction();
-        if ($this->shares()->whereCompanyId($company->id)->count() > 0) {
-            $share = $this->shares()->whereCompanyId($company->id)->first()->inc($shares_count);
+        $c = $this->shares()->whereCompanyId($company->id);
+        if ($c->count() > 0) {
+            $share = $c->first()->inc($shares_count);
         } else {
             $share = $this->shares()->create(['company_id' => $company->id, 'amount' => $shares_count]);
         }
@@ -125,12 +126,9 @@ class User extends Authenticatable
         $company->decreaseValue($shares_count);
         if (!$this->decrementOrDelete($company, $shares_count) || !$this->bank->increment('credit', $price) || !$company->increment('free_shares', $shares_count)) {
             DB::rollback();
-
             return false;
         }
-
         DB::commit();
-
         return true;
     }
 
