@@ -21,6 +21,7 @@ class Transaction extends Model
         'decrease',
         'increase',
         'dividend',
+        'random'
     ];
 
     /**
@@ -72,6 +73,9 @@ class Transaction extends Model
     {
         if ($this->type == 'dividend') {
             return '$'.number_format((unserialize($this->payload)['amount'] / 100), 2);
+        }
+        if ($this->type == 'random') {
+            return unserialize($this->payload)['story'];
         }
 
         return unserialize($this->payload)['shares'];

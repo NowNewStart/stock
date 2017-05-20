@@ -8,13 +8,6 @@ use Carbon\Carbon;
 
 class CompanyController extends Controller
 {
-    /**
-     * @return response
-     */
-    public function getIndex()
-    {
-        $all = Company::all();
-    }
 
     /**
      * @param int $id

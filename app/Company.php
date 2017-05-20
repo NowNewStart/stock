@@ -149,4 +149,15 @@ class Company extends Model
     {
         return $this->shares - $this->free_shares;
     }
+
+    /**
+     * @param  int $num
+     *
+     * @return void
+     */
+    public function multiplyValue($num)
+    {
+        $new = $this->value + $this->value * $num;
+        $this->update(['value' => $new]);
+    }
 }

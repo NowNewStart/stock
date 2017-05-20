@@ -31,6 +31,25 @@ class Kernel extends ConsoleKernel
                 $company->payDividends();
             });
         })->everyMinute();
+
+        $schedule->call(function () {
+            $company = Company::inRandomOrder()->first();
+            if (rand(0, 100) > 50) {
+                $company->multiplyValue(rand(0, 3) / 10);
+                $company->transactions()->create([
+                    'type' => 'random',
+                    'payload' => serialize(['story' => 'A random event occurred which increased the value.']),
+                    'user_id' => 1
+                ]);
+            } else {
+                $company->multiplyValue(rand(0, 3) / (-10));
+                $company->transactions()->create([
+                    'type' => 'random',
+                    'payload' => serialize(['story' => 'A random event occurred which decreased the value.']),
+                    'user_id' => 1
+                ]);
+            }
+        })->hourly();
     }
 
     /**
