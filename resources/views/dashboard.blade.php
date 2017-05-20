@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('title', 'Dashboard')
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-xl-7 col-sm-12">    
+        <div class="offset-xl-1 col-xl-6 col-sm-12">    
                 <div class="card">
                     <div class="card-block">
                         <h4 class="card-title">Latest Transactions</h4>
@@ -12,6 +12,7 @@
                             <thead>
                                 <tr>
                                     <th>Type</th>
+                                    <th>Company</th>
                                     <th>Share Amount</th>
                                     <th>Time</th>
                                 </tr>
@@ -20,6 +21,7 @@
                             <tbody>
                                 <tr>
                                     <td>{{ $transaction->getType() }}</td>
+                                    <td><a href="/company/{{ $transaction->company->identifier }}">{{ $transaction->company->name }}</a></td>
                                     <td>{{ $transaction->parsePayload()}}</td>
                                     <td>{{ $transaction->created_at->diffForHumans() }}</td>
                                 </tr>
@@ -32,7 +34,7 @@
                     </div>
                 </div>
         </div>
-        <div class="col-xl-5 col-sm-12">
+        <div class="col-xl-3 col-sm-12">
                     <div class="card">
                         <div class="card-block">
                             <h4 class="card-title">Your Bank Account</h4>
