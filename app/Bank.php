@@ -19,10 +19,12 @@ class Bank extends Model
     }
 
     /**
-     * @param  intt $change
+     * @param intt $change
+     *
      * @return void
      */
-    public function changeCredit($change) {
+    public function changeCredit($change)
+    {
         $new = $this->credit + $change;
         $this->update(['credit' => $new]);
     }
