@@ -21,7 +21,7 @@ class Transaction extends Model
         'decrease',
         'increase',
         'dividend',
-        'random'
+        'random',
     ];
 
     /**

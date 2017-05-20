@@ -2,12 +2,12 @@
 
 namespace App\Jobs;
 
+use App\Company;
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use App\Company;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 class RandomEventJob implements ShouldQueue
 {
@@ -34,16 +34,16 @@ class RandomEventJob implements ShouldQueue
         if (rand(0, 100) > 50) {
             $company->multiplyValue(rand(0, 3) / 10);
             $company->transactions()->create([
-                    'type' => 'random',
+                    'type'    => 'random',
                     'payload' => serialize(['story' => 'A random event occurred which increased the value.']),
-                    'user_id' => 1
+                    'user_id' => 1,
                 ]);
         } else {
             $company->multiplyValue(rand(0, 3) / (-10));
             $company->transactions()->create([
-                    'type' => 'random',
+                    'type'    => 'random',
                     'payload' => serialize(['story' => 'A random event occurred which decreased the value.']),
-                    'user_id' => 1
+                    'user_id' => 1,
                 ]);
         }
     }

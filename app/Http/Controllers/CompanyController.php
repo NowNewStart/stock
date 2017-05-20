@@ -8,7 +8,6 @@ use Carbon\Carbon;
 
 class CompanyController extends Controller
 {
-
     /**
      * @param int $id
      *

@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\User;
 use App\Bank;
+use App\User;
 use Tests\TestCase;
 
 class BankTest extends TestCase
@@ -32,6 +32,6 @@ class BankTest extends TestCase
             //Sometimes the factory gives us an user with stuff like " 'O " in his name, PHPUnit would fail asserting these because the html code decodes them into their html ascii codes
             $response->assertSee(htmlspecialchars($user->name));
         });
-        $response->assertSee("200,000.00");
+        $response->assertSee('200,000.00');
     }
 }

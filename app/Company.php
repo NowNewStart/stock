@@ -151,7 +151,7 @@ class Company extends Model
     }
 
     /**
-     * @param  int $num
+     * @param int $num
      *
      * @return void
      */
