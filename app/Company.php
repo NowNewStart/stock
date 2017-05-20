@@ -160,6 +160,5 @@ class Company extends Model
         $new = $this->value + $this->value * $num;
         $this->stocks()->create(['value' => $new, 'previous' => $this->value]);
         $this->update(['value' => $new]);
-
     }
 }

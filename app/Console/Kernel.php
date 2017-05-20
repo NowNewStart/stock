@@ -2,11 +2,10 @@
 
 namespace App\Console;
 
-use App\Company;
-use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Console\Commands\PayDividendsCommand;
 use App\Console\Commands\RandomEventCommand;
+use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
@@ -18,7 +17,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         \Spatie\MigrateFresh\Commands\MigrateFresh::class,
         PayDividendsCommand::class,
-        RandomEventCommand::class
+        RandomEventCommand::class,
     ];
 
     /**
