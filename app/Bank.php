@@ -17,4 +17,13 @@ class Bank extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * @param  intt $change
+     * @return void
+     */
+    public function changeCredit($change) {
+        $new = $this->credit + $change;
+        $this->update(['credit' => $new]);
+    }
 }

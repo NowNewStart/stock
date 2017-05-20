@@ -77,7 +77,7 @@ class Company extends Model
     {
         $this->shares()->each(function ($share) {
             $dividend = $share->amount * (0.1 * $this->value);
-            $share->user->bank->addToCredit($dividend);
+            $share->user->bank->changeCredit($dividend);
             Transaction::create([
                 'type'       => 'dividend',
                 'payload'    => serialize(['amount' => $dividend]),

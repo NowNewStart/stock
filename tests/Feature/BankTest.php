@@ -23,7 +23,7 @@ class BankTest extends TestCase
             return $bank->user;
         });
         $user = $users->random();
-        $user->bank->addToCredit(10000000);
+        $user->bank->changeCredit(10000000);
         $response = $this->get('/leaderboards/user');
         $this->assertEquals($user->bank->credit, 20000000);
         $this->assertCount(10, User::all());

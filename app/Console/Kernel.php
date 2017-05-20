@@ -29,9 +29,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call(PayDividendsCommand::class)->everyMinute();
+        $schedule->command(PayDividendsCommand::class)->everyMinute();
 
-        $schedule->call(RandomEventCommand::class)->hourly();
+        $schedule->command(RandomEventCommand::class)->hourly();
     }
 
     /**
