@@ -84,10 +84,18 @@
                         @foreach($transactions as $transaction)
                             <tbody>
                                 <tr>
-                                    <td><a href="/user/{{ $transaction->user->name }}">{{ $transaction->user->name }}</a></td>
+                                    @if($transaction->user_id != null)
+                                        <td><a href="/user/{{ $transaction->user->name }}">{{ $transaction->user->name }}</a></td>
+                                    @else
+                                        <td>System</td>
+                                    @endif
                                     <td>{{ $transaction->getType() }}</td>
                                     <td>{{ $transaction->parsePayload()}}</td>
-                                    <td>${{ number_format(($transaction->shares * $company->value) / 100,2)}}</td>
+                                    @if($transaction->getType() != 'random')
+                                        <td>${{ number_format(($transaction->shares * $company->value) / 100,2)}}</td>
+                                    @else
+                                        <td></td>
+                                    @endif
                                     <td>{{ $transaction->created_at->diffForHumans() }}</td>
                                 </tr>
                             </tbody>                            

@@ -5,6 +5,7 @@
     <div class="row">
         <div class="col-xl-12 col-sm-12">
             <div class="table-responsive">
+                <h3>Users sorted by {{ $sorted_by }}</h3>
                 <table class="table table-hover">
                     <thead>
                         <tr>

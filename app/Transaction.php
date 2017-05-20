@@ -64,6 +64,9 @@ class Transaction extends Model
         if ($this->type == 'dividend') {
             return 'Dividends received';
         }
+        if($this->type == 'random') {
+            return 'Event';
+        }
     }
 
     /**

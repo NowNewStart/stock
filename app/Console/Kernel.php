@@ -5,6 +5,8 @@ namespace App\Console;
 use App\Company;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Console\Commands\PayDividendsCommand;
+use App\Console\Commands\RandomEventCommand;
 
 class Kernel extends ConsoleKernel
 {
@@ -15,6 +17,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \Spatie\MigrateFresh\Commands\MigrateFresh::class,
+        PayDividendsCommand::class,
+        RandomEventCommand::class
     ];
 
     /**
@@ -26,30 +30,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call(function () {
-            Company::all()->each(function ($company) {
-                $company->payDividends();
-            });
-        })->everyMinute();
+        $schedule->call(PayDividendsCommand::class)->everyMinute();
 
-        $schedule->call(function () {
-            $company = Company::inRandomOrder()->first();
-            if (rand(0, 100) > 50) {
-                $company->multiplyValue(rand(0, 3) / 10);
-                $company->transactions()->create([
-                    'type'    => 'random',
-                    'payload' => serialize(['story' => 'A random event occurred which increased the value.']),
-                    'user_id' => 1,
-                ]);
-            } else {
-                $company->multiplyValue(rand(0, 3) / (-10));
-                $company->transactions()->create([
-                    'type'    => 'random',
-                    'payload' => serialize(['story' => 'A random event occurred which decreased the value.']),
-                    'user_id' => 1,
-                ]);
-            }
-        })->hourly();
+        $schedule->call(RandomEventCommand::class)->hourly();
     }
 
     /**

@@ -25,7 +25,7 @@
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
+              <li class="nav-item">
                 <a class="nav-link" href="/">Home</a>
               </li>
               @if(Auth::check())
@@ -33,6 +33,17 @@
                 <a class="nav-link" href="/dash">Control Panel</a>
               </li>
               @endif
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Leaderboards
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="/leaderboards/user">Users By Credit</a>
+                  <a class="dropdown-item" href="/leaderboards/user/shares">Users by Shares owned</a>
+                  <a class="dropdown-item" href="/leaderboards/company">Companies by Value</a>
+                  <a class="dropdown-item" href="/leaderboards/company/shares">Companies by Shares sold</a>
+                </div>
+              </li>     
             </ul>
             <ul class="navbar-nav my-6 my-lg-0">
               @if(Auth::check())

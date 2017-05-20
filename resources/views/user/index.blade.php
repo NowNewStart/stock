@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('title', $user->name)
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-xl-5 col-sm-12">
+        <div class="offset-xl-1 col-xl-5 col-sm-12">
             <div class="card">
                 <div class="card-block">
                     <h4 class="card-title">{{ $user->name }}</h4>
@@ -20,7 +20,7 @@
                                     <td>${{ $user->getBalance() }}</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Amount of Shares owned</strong></td>
+                                    <td><strong>Amount of Shares</strong></td>
                                     <td>{{ $user->sharesOwned() }}</td>
                                 </tr>
                             </tbody>
@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-7 col-sm-12">
+        <div class="col-xl-5 col-sm-12">
             <div class="card">
                 <div class="card-block">
                     <h4 class="card-title">Owned Shares</h4>
@@ -38,6 +38,7 @@
                             <thead>
                                 <tr>
                                     <th>User</th>
+                                    <th>Company</th>
                                     <th>Shares</th>
                                     <th>Value</th>
                                     <th>Time</th>
@@ -47,6 +48,7 @@
                             <tbody>
                                 <tr>
                                     <td><a href="/user/{{ $share->user->name }}">{{ $share->user->name }}</a></td>
+                                    <td><a href="/company/{{ $share->company->identifier }}">{{ $share->company->name }}</a></td>
                                     <td>{{ $share->amount }}</td>
                                     <td>${{ $share->getShareValue() }}</td>
                                     <td>{{ $share->updated_at->diffForHumans() }}</td>
