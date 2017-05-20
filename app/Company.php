@@ -25,6 +25,7 @@ class Company extends Model
         if ($this->stocks()->create(['value' => $new_value, 'previous' => $this->value]) && $this->update(['value' => $new_value])) {
             return true;
         }
+
         return false;
     }
 
@@ -39,6 +40,7 @@ class Company extends Model
         if ($this->stocks()->create(['value' => $new_value, 'previous' => $this->value]) && $this->update(['value' => $new_value])) {
             return true;
         }
+
         return false;
     }
 
@@ -87,7 +89,7 @@ class Company extends Model
 
     /**
      * @param int $index
-     * 
+     *
      * @return mixed data
      */
     public function getStockChanges($index)

@@ -126,9 +126,11 @@ class User extends Authenticatable
         $company->decreaseValue($shares_count);
         if (!$this->decrementOrDelete($company, $shares_count) || !$this->bank->increment('credit', $price) || !$company->increment('free_shares', $shares_count)) {
             DB::rollback();
+
             return false;
         }
         DB::commit();
+
         return true;
     }
 

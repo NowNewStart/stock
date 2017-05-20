@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use Auth;
-use Carbon\Carbon;
 
 class CompanyController extends Controller
 {
