@@ -19,9 +19,7 @@ class BankTest extends TestCase
         $users = factory(User::class, 10)->create()->each(function ($user) {
             $user->createBankAccount();
         });
-        $sorted = Bank::orderByDesc('credit')->take(10)->get()->map(function ($bank) {
-            return $bank->user;
-        });
+        $sorted = Bank::orderByDesc('credit')->take(10)->get()->map->user;
         $user = $users->random();
         $user->bank->changeCredit(10000000);
         $response = $this->get('/leaderboards/user');

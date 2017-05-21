@@ -16,10 +16,10 @@ class ShareController extends Controller
      *
      * @return mixed data
      */
-    public function buyShares(Company $company, Request $request)
+    public function buyShares(Company $company)
     {
-        if ($request->get('shares') > 0 && Auth::user()->buyShares($company, $request->get('shares'))) {
-            Session::flash('success', 'You bought '.$request->get('shares').' Share(s).');
+        if (request('shares') > 0 && Auth::user()->buyShares($company, request('shares'))) {
+            Session::flash('success', 'You bought '.request('shares').' Share(s).');
         } else {
             Session::flash('error', 'There was a mistake buying shares. You might not have enough money.');
         }
@@ -33,10 +33,10 @@ class ShareController extends Controller
      *
      * @return mixed data
      */
-    public function sellShares(Company $company, Request $request)
+    public function sellShares(Company $company)
     {
-        if ($request->get('shares') > 0 && Auth::user()->sellShares($company, $request->get('shares'))) {
-            Session::flash('success', 'You sold '.$request->get('shares').' Share(s).');
+        if (request('shares') > 0 && Auth::user()->sellShares($company, request('shares'))) {
+            Session::flash('success', 'You sold '.request('shares').' Share(s).');
         } else {
             Session::flash('error', 'There was a mistake selling shares. You might not have enough shares.');
         }

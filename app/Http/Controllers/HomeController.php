@@ -15,10 +15,7 @@ class HomeController extends Controller
     public function getIndex()
     {
         $mvc = Company::orderBy('value', 'desc')->get()->take(10);
-        $users = Bank::orderByDesc('credit')->take(100)->get()->map(function ($bank) {
-            return $bank->user;
-        });
-
+        $users = Bank::orderByDesc('credit')->take(100)->get()->map->user;
         return view('welcome', ['mvc' => $mvc, 'users' => $users]);
     }
 
@@ -39,9 +36,7 @@ class HomeController extends Controller
      */
     public function getUserLeaderboardByCredit()
     {
-        $users = Bank::orderByDesc('credit')->take(100)->get()->map(function ($bank) {
-            return $bank->user;
-        });
+        $users = Bank::orderByDesc('credit')->take(100)->get()->map->user;
 
         return view('leaderboards.user', ['users' => $users, 'sorted_by' => 'Credit']);
     }
