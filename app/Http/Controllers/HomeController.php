@@ -16,6 +16,7 @@ class HomeController extends Controller
     {
         $mvc = Company::orderBy('value', 'desc')->get()->take(10);
         $users = Bank::orderByDesc('credit')->take(100)->get()->map->user;
+
         return view('welcome', ['mvc' => $mvc, 'users' => $users]);
     }
 
