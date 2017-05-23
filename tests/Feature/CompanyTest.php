@@ -8,7 +8,6 @@ use Tests\TestCase;
 
 class CompanyTest extends TestCase
 {
-
     /**
      * @return void
      */
@@ -28,6 +27,7 @@ class CompanyTest extends TestCase
         $this->assertEquals(10000, $new_company->fresh()->free_shares);
         $this->assertEquals(0, $user->sharesOfCompany($company));
     }
+
     /**
      * @return void
      */
@@ -106,53 +106,56 @@ class CompanyTest extends TestCase
     /**
      * @return void
      */
-    public function testGuestCanSeeCompanyPage() {
+    public function testGuestCanSeeCompanyPage()
+    {
         $company = factory(Company::class)->create([
-            'identifier' => 'TEST',
-            'name'     => 'Test Company',
-            'shares'    => 10000,
+            'identifier'  => 'TEST',
+            'name'        => 'Test Company',
+            'shares'      => 10000,
             'free_shares' => 9999,
-            'value'       => 12500
+            'value'       => 12500,
         ]);
-        $response = $this->get("/company/".$company->identifier);
+        $response = $this->get('/company/'.$company->identifier);
 
-        $response->assertSee("10000");
-        $response->assertSee("9999");
-        $response->assertSee("125.00");
-        $response->assertSee("Test Company");
+        $response->assertSee('10000');
+        $response->assertSee('9999');
+        $response->assertSee('125.00');
+        $response->assertSee('Test Company');
     }
 
     /**
      * @return void
      */
-    public function testUserCanSeeCompanyPage() {
+    public function testUserCanSeeCompanyPage()
+    {
         $user = factory(User::class)->create([])->createBankAccount();
         $company = factory(Company::class)->create([
-            'identifier' => 'TEST',
-            'name'     => 'Test Company',
-            'shares'    => 10000,
+            'identifier'  => 'TEST',
+            'name'        => 'Test Company',
+            'shares'      => 10000,
             'free_shares' => 9999,
-            'value'       => 12500
-        ]);        
-        $response = $this->actingAs($user)->get("/company/".$company->identifier);
+            'value'       => 12500,
+        ]);
+        $response = $this->actingAs($user)->get('/company/'.$company->identifier);
 
-        $response->assertSee("10000");
-        $response->assertSee("9999");
-        $response->assertSee("125.00");
-        $response->assertSee("Test Company");      
-        $response->assertSee("Buy Shares");
-        
-        $user->buyShares($company,1);        
-        $response = $this->actingAs($user)->get("/company/".$company->identifier);
-        $response->assertSee("Sell Shares");
+        $response->assertSee('10000');
+        $response->assertSee('9999');
+        $response->assertSee('125.00');
+        $response->assertSee('Test Company');
+        $response->assertSee('Buy Shares');
+
+        $user->buyShares($company, 1);
+        $response = $this->actingAs($user)->get('/company/'.$company->identifier);
+        $response->assertSee('Sell Shares');
     }
 
     /**
      * @return void
      */
-    public function testGuestCantBuyShares() {
+    public function testGuestCantBuyShares()
+    {
         $company = factory(Company::class)->create();
-        $response = $this->post("/company/".$company->identifier."/buy", ['shares' => 1]);
+        $response = $this->post('/company/'.$company->identifier.'/buy', ['shares' => 1]);
 
         $response->assertRedirect('/login');
         $response->assertStatus(302);
@@ -161,17 +164,19 @@ class CompanyTest extends TestCase
     /**
      * @return void
      */
-    public function testGuestCantSellShares() {
+    public function testGuestCantSellShares()
+    {
         $company = factory(Company::class)->create();
-        $response = $this->post("/company/".$company->identifier."/sell", ['shares' => 1]);
+        $response = $this->post('/company/'.$company->identifier.'/sell', ['shares' => 1]);
 
         $response->assertRedirect('/login');
         $response->assertStatus(302);
     }
 
-    public function testUsersCanSeeCompanyChartPage() {
+    public function testUsersCanSeeCompanyChartPage()
+    {
         $company = factory(Company::class)->create();
-        $response = $this->get("/company/".$company->identifier."/charts");
+        $response = $this->get('/company/'.$company->identifier.'/charts');
 
         $response->assertSee($company->name);
         $response->assertSee('<div class="charts" style="background: inherit;">');
