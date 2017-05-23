@@ -19,7 +19,7 @@ class Kernel extends ConsoleKernel
         \Spatie\MigrateFresh\Commands\MigrateFresh::class,
         PayDividendsCommand::class,
         RandomEventCommand::class,
-        StockChangeCommand::class
+        StockChangeCommand::class,
     ];
 
     /**

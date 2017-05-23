@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\Company;
+use Illuminate\Console\Command;
 
 class StockChangeCommand extends Command
 {
@@ -39,12 +39,12 @@ class StockChangeCommand extends Command
     public function handle()
     {
         Company::all()->each(function ($company) {
-            $rand = rand(0,10);
-            if($rand > 5) {
-                $company->multiplyValue(rand(0,1) / 10);
+            $rand = rand(0, 10);
+            if ($rand > 5) {
+                $company->multiplyValue(rand(0, 1) / 10);
             } else {
-                $company->multiplyValue(rand(0,1) / (-10));
+                $company->multiplyValue(rand(0, 1) / (-10));
             }
-        });   
+        });
     }
 }

@@ -38,8 +38,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/dash', 'HomeController@getDashboard');
 
-    Route::get('/logout', function() {
+    Route::get('/logout', function () {
         Auth::logout();
+
         return redirect('/');
     });
 });

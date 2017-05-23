@@ -23,22 +23,22 @@ class CompanyController extends Controller
             return $stock->created_at->diffForHumans();
         })->reverse();
         $values = $stocks->get()->map(function ($stock) {
-            return ($stock->value / 100);
+            return $stock->value / 100;
         })->reverse();
         $chart = Charts::create('line', 'highcharts')->title('Stock Changes')
                                                                                     ->elementLabel('Stock in Dollar')
                                                                                     ->labels($labels->toArray())
                                                                                     ->values($values->toArray())
-                                                                                    ->dimensions($values->max() + 1000,$values->min() - 1000)
+                                                                                    ->dimensions($values->max() + 1000, $values->min() - 1000)
                                                                                     ->responsive(true);
 
         $view = (Auth::check()) ? 'company.authed.index' : 'company.nonauth.index';
 
         return view($view, [
-            'company'      => $company,
-            'transactions' => $transactions,
+            'company'           => $company,
+            'transactions'      => $transactions,
             'stocks'            => $stocks,
-            'chart'             => $chart
+            'chart'             => $chart,
         ]);
     }
 }
