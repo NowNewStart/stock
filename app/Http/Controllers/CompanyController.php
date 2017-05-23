@@ -33,7 +33,7 @@ class CompanyController extends Controller
                                                                                     ->dimensions($values->max() + 1000, $values->min() - 1000)
                                                                                     ->responsive(true);
 
-        $view = (Auth::check()) ? 'company.authed.index' : 'company.nonauth.index';
+        $view = (Auth::check()) ? 'company.auth.index' : 'company.nonauth.index';
 
         return view($view, [
             'company'           => $company,
