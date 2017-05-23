@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use Auth;
-use Charts;
 use Carbon\Carbon;
+use Charts;
 
 class CompanyController extends Controller
 {
@@ -44,10 +44,12 @@ class CompanyController extends Controller
     }
 
     /**
-     * @param  Company $company
+     * @param Company $company
+     *
      * @return view
      */
-    public function showCompanyCharts(Company $company) {
+    public function showCompanyCharts(Company $company)
+    {
         $stocks = $company->stocks()->whereDate('created_at', Carbon::today())->orderBy('id');
         $labels = $stocks->get()->map(function ($stock) {
             return $stock->created_at->diffForHumans();
@@ -61,9 +63,10 @@ class CompanyController extends Controller
                                                                                     ->values($values->toArray())
                                                                                     ->dimensions($values->max() + 1000, $values->min() - 1000)
                                                                                     ->responsive(true);
+
         return view('company.charts', [
-            'company' => $company,
+            'company'     => $company,
             'stock_chart' => $stock_chart,
-        ]);                                                                                 
+        ]);
     }
 }
