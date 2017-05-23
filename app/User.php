@@ -177,4 +177,10 @@ class User extends Authenticatable
     {
         return number_format(($this->bank->credit - 10000000) / 100, 2);
     }
+
+    public function getOwnedShareValue() {
+        return number_format($this->shares->map(function ($share) {
+            return $share->amount * $share->company->value;
+        })->sum() / 100,2);
+    }
 }

@@ -56,6 +56,10 @@
                                                     @endif
                                                 </td>
                                             </tr>
+                                            <tr>
+                                                <td><strong>Share Value</strong></td>
+                                                <td>${{ Auth::user()->getOwnedShareValue() }}</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
