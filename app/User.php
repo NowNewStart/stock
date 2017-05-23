@@ -72,9 +72,9 @@ class User extends Authenticatable
         DB::beginTransaction();
         $c = $this->shares()->whereCompanyId($company->id);
         if ($c->count() > 0) {
-            $share = $c->first()->inc($shares_count);
+            $c->first()->inc($shares_count);
         } else {
-            $share = $this->shares()->create(['company_id' => $company->id, 'amount' => $shares_count]);
+            $this->shares()->create(['company_id' => $company->id, 'amount' => $shares_count]);
         }
         if (!$this->bank->decrement('credit', $price) || !$company->decrement('free_shares', $shares_count)) {
             DB::rollback();

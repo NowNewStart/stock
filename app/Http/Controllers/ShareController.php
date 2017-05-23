@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Company;
-use App\Share;
 use Auth;
 use Illuminate\Http\Request;
 use Session;

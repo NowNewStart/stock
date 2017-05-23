@@ -37,4 +37,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/company/{company}/sell', 'ShareController@sellShares');
 
     Route::get('/dash', 'HomeController@getDashboard');
+
+    Route::get('/logout', function() {
+        Auth::logout();
+        return redirect('/');
+    });
 });
