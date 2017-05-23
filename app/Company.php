@@ -128,7 +128,7 @@ class Company extends Model
      */
     public function multiplyValue($num)
     {
-        if($this->value == 0) {
+        if ($this->value == 0) {
             $new = 1 * $num;
         } else {
             $new = $this->value + $this->value * $num;
