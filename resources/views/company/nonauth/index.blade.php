@@ -73,6 +73,7 @@
                 <div class="card-block">
                     <p class="card-text">
                         {!! $chart->render() !!}
+                        <a href="/company/{{ $company->identifier }}/charts" class="btn btn-primary">Bigger Charts</a>
                     </p>
                 </div>
             </div>        

@@ -21,6 +21,7 @@ Route::bind('company', function ($value) {
 Route::get('/', 'HomeController@getIndex');
 
 Route::get('/company/{company}', 'CompanyController@getCompany');
+Route::get('/company/{company}/charts', 'CompanyController@showCompanyCharts');
 Route::get('/user/{user}', 'UserController@getUser');
 
 Route::get('/leaderboards/user', 'HomeController@getUserLeaderboardByCredit');

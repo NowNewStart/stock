@@ -112,8 +112,9 @@
         <div class="col-xl-7 col-sm-12">
             <div class="card">
                 <div class="card-block">
-                    <p class="card-text">
+                    <p class="card-text">                     
                         {!! $chart->render() !!}
+                        <a href="/company/{{ $company->identifier }}/charts" class="btn btn-primary">Bigger Charts</a>
                     </p>
                 </div>
             </div>        
