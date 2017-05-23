@@ -128,7 +128,11 @@ class Company extends Model
      */
     public function multiplyValue($num)
     {
-        $new = $this->value + $this->value * $num;
+        if($this->value == 0) {
+            $new = 1 * $num;
+        } else {
+            $new = $this->value + $this->value * $num;
+        }
         $this->stocks()->create(['value' => $new, 'previous' => $this->value]);
         $this->update(['value' => $new]);
     }

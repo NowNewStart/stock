@@ -41,9 +41,9 @@ class StockChangeCommand extends Command
         Company::all()->each(function ($company) {
             $rand = rand(0, 10);
             if ($rand > 5) {
-                $company->multiplyValue(rand(0, 1) / 10);
+                $company->multiplyValue(rand(0, 1) / 100);
             } else {
-                $company->multiplyValue(rand(0, 1) / (-10));
+                $company->multiplyValue(rand(0, 1) / (-100));
             }
         });
     }
