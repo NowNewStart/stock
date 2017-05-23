@@ -175,6 +175,6 @@ class User extends Authenticatable
      */
     public function getProfit()
     {
-        return number_format(($this->bank->credit - 10000000) / 1000, 2);
+        return number_format(($this->bank->credit - 10000000) / 100, 2);
     }
 }
