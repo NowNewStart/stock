@@ -9,7 +9,7 @@
         <div class="col-xl-12 col-lg-12 col-sm-12">
             <div class="card">
                 <div class="card-block">
-                    <h4 class="card-title">Want to join too?</h4>
+                    <h4 class="card-title">Want to join and play this in our fake stock market too?</h4>
                     <a href="/login" class="btn btn-primary">Sign In</a> or
                     <a href="/register" class="btn btn-outline-primary">Sign Up</a>
                 </div>
