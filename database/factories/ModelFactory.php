@@ -22,7 +22,8 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 });
 $factory->define(App\Company::class, function (Faker\Generator $faker) {
     $name = $faker->firstName;
-    $shares = $faker->numberBetween(1000,1000000);
+    $shares = $faker->numberBetween(1000, 1000000);
+
     return [
         'name'                => $name,
         'identifier'          => strtoupper(substr($name, 0, 4)),

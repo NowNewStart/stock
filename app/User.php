@@ -188,7 +188,8 @@ class User extends Authenticatable
     /**
      * @return belongsTo
      */
-    public function balances() {
+    public function balances()
+    {
         return $this->hasMany(Balance::class);
     }
 }
