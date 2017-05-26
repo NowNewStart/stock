@@ -184,4 +184,11 @@ class User extends Authenticatable
             return $share->amount * $share->company->value;
         })->sum() / 100, 2);
     }
+
+    /**
+     * @return belongsTo
+     */
+    public function balances() {
+        return $this->hasMany(Balance::class);
+    }
 }

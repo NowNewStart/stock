@@ -72,12 +72,13 @@ class Transaction extends Model
     /**
      * @return array
      */
-    public function parsePayload()
+    public function parsePayload($view=true)
     {
-        if ($this->type == 'dividend') {
+        if($view && $this->type == 'dividend') {
             return '$'.number_format((unserialize($this->payload)['amount'] / 100), 2);
-        }
-        if ($this->type == 'random') {
+        } elseif(!$view && $this->type == 'dividend') {
+            return unserialize($this->payload)['amount'];
+        } elseif ($this->type == 'random') {
             return unserialize($this->payload)['story'];
         }
 

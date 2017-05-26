@@ -30,6 +30,7 @@
                                         <sup>${{ $company->getValue() }}</sup>
                                     </li>
                                 @endforeach
+                            </ul>
                         </p>
                     </div>
                 </div>
@@ -46,10 +47,10 @@
                                         <sup>${{ $user->getBalance() }}</sup>
                                     </li>
                                 @endforeach
+                            </ul>
                         </p>
                     </div>
                 </div>            
-
         </div>
     </div>
 </div>
