@@ -21,7 +21,7 @@ class CompanyController extends Controller
             return $transaction->type != 'dividend';
         })->take(10);
         $labels = $stocks->get()->map(function ($stock) {
-            return $stock->created_at->diffForHumans();
+            return $stock->created_at->format('H:i');
         })->reverse();
         $values = $stocks->get()->map(function ($stock) {
             return $stock->value / 100;
@@ -52,7 +52,7 @@ class CompanyController extends Controller
     {
         $stocks = $company->stocks()->whereDate('created_at', Carbon::today())->orderBy('id');
         $labels = $stocks->get()->map(function ($stock) {
-            return $stock->created_at->diffForHumans();
+            return $stock->created_at->format('H:i');
         });
         $values = $stocks->get()->map(function ($stock) {
             return $stock->value / 100;
